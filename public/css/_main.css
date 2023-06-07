@@ -1,0 +1,56 @@
+:root {
+    --padding-box: 10px;
+}
+
+/* .wrapper {
+    width: 100%;
+    height: 100vh;
+} */
+
+.content-home {
+    margin: 30px 40px 0 20%;
+}
+
+.box_group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2%;
+}
+
+.box {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+    padding: var(--padding-box);
+    position: relative;
+}
+
+.box:first-child {
+    background: linear-gradient(to bottom right, #fec194, #ff0061);
+}
+.box:nth-child(2) {
+    background: linear-gradient(to bottom right, #00ffa9, #0d4dff);
+}
+.box:last-child {
+    background: linear-gradient(to bottom right, #a32cdf, #106ad2);
+}
+
+.box p {
+    color: white;
+    padding: 0;
+    margin: 0;
+    font-size: x-large;
+    font-weight: 600;
+}
+
+p.box-text {
+    margin-bottom: calc(7 * var(--padding-box));
+}
+
+p.box-number {
+    position: absolute;
+    right: calc(2 * var(--padding-box));
+    bottom: var(--padding-box);
+}

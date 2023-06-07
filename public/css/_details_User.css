@@ -1,0 +1,72 @@
+body {
+    background-color: rgb(238, 238, 238);
+}
+
+.wrapper {
+    width: 80%;
+    margin: auto;
+    display: flex;
+}
+
+.books {
+    width: 70%;
+    border-right: 2px solid grey;
+}
+
+.genres {
+    width: 30%;
+}
+
+.header {
+    display: flex;
+}
+
+.left img {
+    width: 300px;
+    height: 420px;
+    object-fit: cover;
+    object-position: center;
+    margin-right: 20px;
+    border-radius: 3px;
+}
+
+.right div {
+    display: block;
+    font-size: 25px;
+    margin: 20px 0;
+}
+
+.right h4 {
+    margin-top: 0;
+}
+
+.right div:first-child {
+    text-transform: uppercase;
+    margin-top: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+ul button {
+    border: none;
+    color: rgb(245, 194, 55);
+    width: 100%;
+    text-align: left;
+    height: 45px;
+    font-size: 25px;
+    font-weight: bold;
+    background: none;
+    margin: 10px 0;
+    transition: translate 0.3s linear;
+}
+
+ul button:hover {
+    translate: 0 -10%;
+    cursor: pointer;
+}
+
+.genres h2 {
+    margin-left: 20px;
+}

@@ -1,0 +1,54 @@
+.logo {
+    display: flex;
+    justify-content: center;
+}
+
+.logo > img {
+    width: 250px;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+}
+
+.search input {
+    width: 600px;
+    height: 35px;
+    border-radius: 10px;
+    border-color: rgb(41, 149, 244);
+    box-shadow: none;
+}
+
+.list-genre {
+    display: flex;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-size: 26px;
+}
+
+ul {
+    list-style: none;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+ul li {
+    display: inline-block;
+    margin: 10px;
+}
+
+ul button {
+    width: 150px;
+    height: 100px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(70, 190, 198);
+}
