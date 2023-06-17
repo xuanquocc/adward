@@ -13,16 +13,44 @@
 </head>
 
 <body>
-    <div>
+    <div style="display: flex; flex-direction: row;">
         @include('publicView.sidebar')
-        <div class="content-wrapper">
+        <div class="content-wrapper flex-grow-1" style="margin:0 !important;">
             <div class="content">
                 <div>
-                    <a href="{{ route('admin.customer.create') }}">tạo client</a>
-                </div>
-                <div>
-                    <a href="{{ route('admin.project.create') }}">tạo project</a>
-                </div>
+                    
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-md-3">
+                          <div class="info-box">
+                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+              
+                            <div class="info-box-content">
+                                <a href="{{ route('admin.customer.create') }}">tạo client</a>
+                              <span class="info-box-number">
+                                10
+                                <small>%</small>
+                              </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                          </div>
+                          <!-- /.info-box -->
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <div class="info-box">
+                              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+                
+                              <div class="info-box-content">
+                                <a href="{{ route('admin.project.create') }}">tạo project</a>
+                                <span class="info-box-number">
+                                  10
+                                  <small>%</small>
+                                </span>
+                              </div>
+                              <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                          </div>
+                    </div>
 
                 <div class="row">
                     <div class="col-12">

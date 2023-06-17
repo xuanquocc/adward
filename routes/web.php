@@ -1,13 +1,14 @@
 <?php
 
+use App\Http\Controllers\Auth\Admin\AdminCreatorManage;
 use App\Http\Controllers\Auth\Admin\CustomerManage;
 use App\Http\Controllers\Auth\Admin\LoginController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\Admin\RegisterCustumer;
 use App\Http\Controllers\Creator\CreatorManage;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Customer\Customer;
+use App\Models\Creators;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FullCalenderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,7 +19,7 @@ use Illuminate\Http\Request;
 | be assigned to the "web" middleware group. Make something great!
 |
  */
-Auth::routes(['verify' => true]); 
+Illuminate\Support\Facades\Auth::routes(['verify' => true]);
 
 Route::get('/', function () {
     return view('/welcome');
@@ -37,39 +38,32 @@ Route::group(['prefix' => '/'], function () {
     Route::post('admin/project/store', [CustomerManage::class, 'addProject'])->name('admin.project.store');
     Route::get('logout', [LoginController::class, 'logout'])->name('admin.users.logout');
     Route::get('/project/{id}', [CustomerManage::class, 'showProject'])->name('admin.project');
-    Route::get('/project/{id}/assign', [CustomerManage::class, 'assignScreen'])->name('admin.project.assign');
+    Route::get('/project/{id}/assign/{customerId}', [CustomerManage::class, 'assignScreen'])->name('admin.project.assign');
+    Route::post('/project/{project_id}/assign/{creator_id}', [CustomerManage::class, 'assign'])->name('admin.project.assign.store');
+    Route::get('/admin/creator', [AdminCreatorManage::class, 'index'])->name('admin.creator');
+    Route::get('/admin/creator/projects/{id}', [AdminCreatorManage::class, 'showProject'])->name('admin.creator.project');
+    Route::get('/admin/project/{id}/detail', [CustomerManage::class, 'showTotalCreator'])->name('admin.creator.project.detail');
 });
 
 //client
-Route::group(['prefix' => '/'], function () {
-    Route::get('customer/', function () {
-        return view('customer.index');
-    })->middleware('verified')->name('customer.home');
+Route::group(['prefix' => '/Manager'], function () {
+    Route::get('/', [Customer::class, 'ProjectManage'])->middleware('verified')->name('customer.home');
+    Route::get('/project/manage/{id}', [Customer::class, 'projectShow'])->middleware('verified')->name('customer.project.detail');
+    Route::match(['get', 'post'],'/project/search/{id}',[Customer::class, 'search'])->middleware('verified')->name('customer.project.search');
 });
+
 
 //creator
 Route::group(['prefix' => '/creator'], function () {
     Route::get('/', [CreatorManage::class, 'index'])->middleware('verified')->name('creator.home');
     Route::post('/profile', [CreatorManage::class, 'editProfile'])->middleware('verified')->name('creator.profile');
-
+    Route::get('/getevent/{id}/creator/{creator_id}', [CreatorManage::class, 'getEvent'])->name('getevent');
+    Route::post('/calendar', [CreatorManage::class, 'store'])->name('calendar.store');
+    Route::patch('/calendar/update/{id}', [CreatorManage::class, 'update'])->name('calendar.update');
+    Route::delete('/calendar/delete/{id}', [CreatorManage::class, 'destroy'])->name('calendar.destroy');
+    Route::post('/search/{id}', [CreatorManage::class, 'search'])->name('search');
+    Route::get('/events/{creatorId}', [CreatorManage::class, 'getEvents'])->name('getEvents');
 });
 
-// Route::get('/email/verify', function () {
-//     return view('auth.verify-email');
-// })->middleware('auth')->name('verification.notice');
- 
-// Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-//     $request->fulfill();
- 
-//     return redirect('/home');
-// })->middleware(['auth', 'signed'])->name('verification.verify');
 
-// Route::post('/email/verification-notification', function (Request $request)  {
-//     $request->user()->sendEmailVerificationNotification();
- 
-//     return back()->with('message', 'Verification link sent!');
-// })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');        
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');

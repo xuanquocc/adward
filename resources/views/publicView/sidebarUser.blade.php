@@ -1,6 +1,6 @@
 <nav id="sidebar">
     <div class="p-4 pt-5">
-        <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(images/logo.jpg);"></a>
+        <img src="{{ url('/public/uploads/' .Auth::user()->thumbnail) }}" style="width:200px; height:200px; border-radius:50%;" alt="">
         <h2 style="color: aliceblue;">{{ Auth::user()->name }}</h2>
         <ul class="list-unstyled components mb-5">
             <li class="active">
