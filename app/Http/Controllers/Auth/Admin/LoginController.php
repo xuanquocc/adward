@@ -90,8 +90,14 @@ class LoginController extends Controller
 }
     public function logout()
 {
-    Auth::logout();
-    return redirect()->route('login.bol');
+    if(Auth::user()->type == "creator" || Auth::user()->type == "user"){
+        Auth::logout();
+        return redirect()->route('creator.login');
+    }else{
+        Auth::logout();
+        return redirect()->route('login.bol');        
+    }
+    
 }
 
 public function forgetPass(){
