@@ -24,6 +24,26 @@ class CustomerManage extends Controller
         ]);
     }
 
+    public function searchTable(Request $request){
+    $searchValue = $request->search;
+
+    // Thực hiện tìm kiếm dựa trên giá trị searchValue và trả về kết quả
+    // Ví dụ: sử dụng Eloquent để truy vấn trong cơ sở dữ liệu
+    $results = Customers::where('name', 'like', '%'.$searchValue.'%')->get();
+    // Trả về một view hoặc dữ liệu JSON tùy theo yêu cầu của bạn
+    return response()->json($results);
+    }
+
+    public function searchProject(Request $request){
+        $searchValue = $request->search;
+    
+        // Thực hiện tìm kiếm dựa trên giá trị searchValue và trả về kết quả
+        // Ví dụ: sử dụng Eloquent để truy vấn trong cơ sở dữ liệu
+        $results = Projects::where('name', 'like', '%'.$searchValue.'%')->get();
+        // Trả về một view hoặc dữ liệu JSON tùy theo yêu cầu của bạn
+        return response()->json($results);
+        }
+
     public function addCustomerScreen()
     {
         return view('auth.clientManage.addClient');
@@ -92,13 +112,12 @@ class CustomerManage extends Controller
         ]);
         session()->flash('success', 'Assign thành công!');
         return redirect()->back();
-        // dd($project_id,$creator_id);
     }
 
     public function showTotalCreator($project_id){
         $project_ids = Tasks::where('project_id',$project_id)->pluck('creator_id')->toArray();
         $project_name = Projects::where('id',$project_id)->pluck('name')->first();
-        $creators_info = Creators::whereIn('main_id', $project_ids)->get();
+        $creators_info = Creators::whereIn('main_id', $project_ids)->paginate(3);
         $creators_info->each(function ($creator) use ($project_id) {
             $total_hours_creator = Events::where('project_id', $project_id)->where('creator_id',$creator->main_id)->sum('hours');
             $total_hours = Events::where('project_id', $project_id)->sum('hours');

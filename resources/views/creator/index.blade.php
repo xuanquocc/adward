@@ -27,7 +27,18 @@
         .ag-courses_item:nth-child(6n) .ag-courses-item_bg {
             background-color: #4c49ea;
         }
+        #content{
+            display: flex;
+            flex-direction: column;
+            height: auto;
+        }
+
+        .wrap{
+            flex-direction: row;
+        }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 </head>
 
 <body>
@@ -63,16 +74,16 @@
                                             </div>
                                             <ul class="list-unstyled mb-1-9">
                                                 <li class="mb-2 mb-xl-3 display-28"><span
-                                                        class="display-26 text-secondary me-2 font-weight-600">Phone:</span>
+                                                        class="display-26 text-secondary me-2 font-weight-600">電話:</span>
                                                     {{ $creatorDetail->phone }}</li>
                                                 <li class="mb-2 mb-xl-3 display-28"><span
-                                                        class="display-26 text-secondary me-2 font-weight-600">Experience:</span>
+                                                        class="display-26 text-secondary me-2 font-weight-600">経験:</span>
                                                     {{ $creatorDetail->experience }}</li>
                                                 <li class="mb-2 mb-xl-3 display-28"><span
-                                                        class="display-26 text-secondary me-2 font-weight-600">Email:</span>
+                                                        class="display-26 text-secondary me-2 font-weight-600">メール:</span>
                                                     {{ $creatorDetail->email }}</li>
                                                 <li class="mb-2 mb-xl-3 display-28"><span
-                                                        class="display-26 text-secondary me-2 font-weight-600">Language:</span>
+                                                        class="display-26 text-secondary me-2 font-weight-600">専門:</span>
                                                     {{ $creatorDetail->major }}</li>
 
                                             </ul>
@@ -81,7 +92,7 @@
                                                 @csrf
                                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                                     data-target="#myModal">
-                                                    edit
+                                                    編集
                                                 </button>
                                                 {{-- modal --}}
                                                 <div class="modal fade" id="myModal">
@@ -90,7 +101,7 @@
 
                                                             <!-- Header của Modal dialog -->
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title">Edit Profile</h4>
+                                                                <h4 class="modal-title font-weight-bold">プロファイル編集</h4>
                                                                 <button type="button" class="close"
                                                                     data-dismiss="modal">&times;</button>
                                                             </div>
@@ -106,35 +117,35 @@
                                                                         value="{{ $creator->thumbnail }}">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="name">Name</label>
+                                                                    <label for="name">名前</label>
                                                                     <input type="text" name="name"
                                                                         class="form-control" id="name"
                                                                         autocomplete="off" placeholder="Name"
                                                                         value="{{ $creatorDetail->name }}">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="phone">Phone</label>
+                                                                    <label for="phone">電話</label>
                                                                     <input type="text" name="phone"
                                                                         class="form-control" id="name"
                                                                         autocomplete="off" placeholder="Phone"
                                                                         value="{{ $creatorDetail->phone }}">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="experience">Exeperience</label>
+                                                                    <label for="experience">経験</label>
                                                                     <input type="text" name="experience"
                                                                         class="form-control" id="name"
                                                                         autocomplete="off" placeholder="Experience"
                                                                         value="{{ $creatorDetail->experience }}">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="major">Major</label>
+                                                                    <label for="major">専門</label>
                                                                     <input type="text" name="major"
                                                                         class="form-control" id="name"
                                                                         autocomplete="off" placeholder="Major"
                                                                         value="{{ $creatorDetail->major }}">
                                                                 </div>
                                                                 <div class="form-group" id="uploadfile">
-                                                                    <label for="fileinput">Hình ảnh</label>
+                                                                    <label for="fileinput">画像</label>
                                                                     <input style="display: none" type="file"
                                                                         name="file" id="fileinput"
                                                                         onchange="chooseFile(this)">
@@ -144,9 +155,9 @@
                                                             <!-- Footer của Modal dialog -->
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
-                                                                    data-dismiss="modal">Đóng</button>
+                                                                    data-dismiss="modal">近い</button>
                                                                 <button type="submit"
-                                                                    class="btn btn-primary">Lưu</button>
+                                                                    class="btn btn-primary">保存</button>
                                                             </div>
 
                                                         </div>
@@ -161,62 +172,64 @@
                             </div>
                         </div>
 
-                        <h3>Project was assiged</h3>
-                        <div class="wrap d-flex flex-wrap" style="d-flex flex-wrap">
-                            @foreach ($projectName as $item)
-                                
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <div class="ag-format-container" style="width: 351px">
-                                                <div class="ag-courses_box">
-                                                    <div class="ag-courses_item">
-                                                        <a href="{{ route('getevent', [$item->id, Auth::user()->id]) }}" class="ag-courses-item_link">
-                                                            <div class="ag-courses-item_bg"></div>
-                                                            <div class="ag-courses-item_title">
-                                                                {{ $item->name }}
-                                                            </div>
-                                                            <div class="ag-courses-item_date-box">
-                                                                Start:
-                                                                <span class="ag-courses-item_date">
-                                                                    {{ $item->start }}
-                                                                </span>
-                                                            </div>
-                                                        </a>
-                                                        
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                
-                            @endforeach
-                        </div>
+
 
 
                     </div>
                 </div>
-            </section>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-            <script>
-                function chooseFile(fileInput) {
-                    var img = document.getElementById('image');
-                    if (fileInput.files && fileInput.files[0]) {
+                <h3 style="font-weight: 700;">プロジェクト</h3>
+            <div class="     d-flex flex-wrap" style="d-flex flex-wrap">
+                @foreach ($projectName as $item)
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="ag-format-container" style="width: 351px">
+                                <div class="ag-courses_box">
+                                    <div class="ag-courses_item">
+                                        <a href="{{ route('getevent', [$item->id, Auth::user()->id]) }}"
+                                            class="ag-courses-item_link">
+                                            <div class="ag-courses-item_bg"></div>
+                                            <div class="ag-courses-item_title">
+                                                {{ $item->name }}
+                                            </div>
+                                            <div class="ag-courses-item_date-box">
+                                                始める:
+                                                <span class="ag-courses-item_date">
+                                                    {{ \Carbon\Carbon::parse($item->start)->format('d/m/Y') }}
+                                                </span>
+                                            </div>
+                                        </a>
 
-                        img.style = 'width: 200px !important';
-                        // img.style = 'border-radius: 50%';
-                        var reader = new FileReader();
-                        reader.onload = function(e) {
-                            $('#image').attr('src', e.target.result);
-                        }
-                        reader.readAsDataURL(fileInput.files[0]);
-                    }
-                }
-            </script>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            </section>
+            
+
 
         </div>
     </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+        function chooseFile(fileInput) {
+            var img = document.getElementById('image');
+            if (fileInput.files && fileInput.files[0]) {
+
+                img.style = 'width: 200px !important';
+                // img.style = 'border-radius: 50%';
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#image').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+    </script>
 </body>
 
 </html>

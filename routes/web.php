@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\Admin\AdminCreatorManage;
 use App\Http\Controllers\Auth\Admin\CustomerManage;
 use App\Http\Controllers\Auth\Admin\LoginController;
 use App\Http\Controllers\Auth\Admin\RegisterCustumer;
+use App\Http\Controllers\Auth\Admin\regiterController;
 use App\Http\Controllers\Creator\CreatorManage;
 use App\Http\Controllers\Customer\Customer;
 use App\Models\Creators;
@@ -13,7 +14,7 @@ use App\Http\Controllers\FullCalenderController;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
+|creator/register/verify.
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
@@ -24,13 +25,23 @@ Illuminate\Support\Facades\Auth::routes(['verify' => true]);
 Route::get('/', function () {
     return view('/welcome');
 });
+
+Route::get('/actived/{customer}/{token}',[regiterController::class, 'actived'])->name('actived');
+//foget pass word
+Route::get('/forgetPass', [LoginController::class, 'forgetPass'])->name('forgetPass');
+Route::post('/postForgetPass',[LoginController::class,'postForgetPass'])->name('postForgetPass');
+Route::get('/getPass/{user}/{token}',[LoginController::class,'getPass'])->name('getPass');
+Route::post('/getPass/{user}/{token}',[LoginController::class,'postGetPass'])->name('postGetPass');
+
 //Admin
 Route::group(['prefix' => '/'], function () {
     Route::get('admin/login', [LoginController::class, 'index'])->name('login.bol');
     Route::post('admin/login/store', [LoginController::class, 'checkLogin'])->name('login.check');
     Route::get('admin/', function () {
         return view('/home');
-    })->middleware('verified')->name('admin.home');
+    })->name('admin.home');
+    Route::get('search/customer',[CustomerManage::class,'searchTable'])->name('searchTable');
+    Route::get('search/project',[CustomerManage::class,'searchProject'])->name('searchProject');
     Route::post('admin/customer/register', [RegisterCustumer::class, 'createClient'])->name('admin.customer.register');
     Route::get('admin/custumer', [CustomerManage::class, 'index'])->name('admin.customer');
     Route::get('admin/custumer/create', [CustomerManage::class, 'addCustomerScreen'])->name('admin.customer.create');
@@ -45,24 +56,29 @@ Route::group(['prefix' => '/'], function () {
     Route::get('/admin/project/{id}/detail', [CustomerManage::class, 'showTotalCreator'])->name('admin.creator.project.detail');
 });
 
+Route::get('/getEventUser/{id}/creator/{creator_id}', [Customer::class, 'getEventCustomer'])->middleware('auth')->name('getEventCustomer');
 //client
 Route::group(['prefix' => '/Manager'], function () {
-    Route::get('/', [Customer::class, 'ProjectManage'])->middleware('verified')->name('customer.home');
-    Route::get('/project/manage/{id}', [Customer::class, 'projectShow'])->middleware('verified')->name('customer.project.detail');
-    Route::match(['get', 'post'],'/project/search/{id}',[Customer::class, 'search'])->middleware('verified')->name('customer.project.search');
+    Route::get('/', [Customer::class, 'ProjectManage'])->name('customer.home');
+    Route::get('/project/manage/{id}', [Customer::class, 'projectShow'])->name('customer.project.detail');
+    Route::match(['get', 'post'],'/project/search/{id}',[Customer::class, 'search'])->name('customer.project.search');
+    
 });
 
 
 //creator
 Route::group(['prefix' => '/creator'], function () {
-    Route::get('/', [CreatorManage::class, 'index'])->middleware('verified')->name('creator.home');
-    Route::post('/profile', [CreatorManage::class, 'editProfile'])->middleware('verified')->name('creator.profile');
+    Route::get('/login', [LoginController::class, 'loginScreenCreator'])->name('creator.login');
+    Route::get('/register', [LoginController::class, 'registerScreenCreator'])->name('creator.register');
+    Route::post('/register/verify', [regiterController::class, 'check_register'])->name('register.creator');
+    Route::post('/check/login', [LoginController::class, 'checkLoginCreator'])->name('login.creator');
+    Route::get('/', [CreatorManage::class, 'index'])->name('creator.home');
+    Route::post('/profile', [CreatorManage::class, 'editProfile'])->name('creator.profile');
     Route::get('/getevent/{id}/creator/{creator_id}', [CreatorManage::class, 'getEvent'])->name('getevent');
     Route::post('/calendar', [CreatorManage::class, 'store'])->name('calendar.store');
     Route::patch('/calendar/update/{id}', [CreatorManage::class, 'update'])->name('calendar.update');
     Route::delete('/calendar/delete/{id}', [CreatorManage::class, 'destroy'])->name('calendar.destroy');
     Route::post('/search/{id}', [CreatorManage::class, 'search'])->name('search');
-    Route::get('/events/{creatorId}', [CreatorManage::class, 'getEvents'])->name('getEvents');
 });
 
 

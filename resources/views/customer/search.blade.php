@@ -46,6 +46,7 @@
 
         .wrap {
             height: 100vh;
+            width: 100%;
         }
 
         .contentwraper {
@@ -81,6 +82,17 @@
         .btn-custom:hover {
             opacity: 0.6;
         }
+
+        .inner{
+            display: flex;
+            flex-direction: row;
+        }
+        .pagination{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 
@@ -107,27 +119,30 @@
                 <div class="col-lg-4 col-6 ml-4">
                     <!-- small box -->
                     <div class="Toast bg-success">
-                        <div class="inner">
-                            <h2><span>{{ $project_name }}</span></h2>
+                        <div class="inner" >
+                            <h2><span style="color:aliceblue;">{{ $project_name }}</span></h2>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2 col-6 ml-4">
                     <!-- small box -->
                     <div class="Toast bg-danger">
-                        <div class="inner">
-                            <h2>{{ $creators_info[0]->total_hours }}H </h2>
+                        <div class="inner" >
+                            <h2 style="color:aliceblue;">{{ $creators_info[0]->total_hours }}H </h2>
                         </div>
                     </div>
                 </div>
 
-                {{-- <div class="col-lg-4 col-6 ml-4">
-                    <form class="form-group" action="{{ route('customer.project.search', $project_id) }}" method="POST">
-                        @csrf
-                        <input type="date" name="date" id="date">
-                        <button type="submit" id="search-button">Search</button>
-                    </form>
-                </div> --}}
+                <div class="col-lg-4 col-6 ml-4">
+                    <!-- small box -->
+                    <div class="Toast bg-danger">
+                        <div class="inner" style="padding: 10px; color:aliceblue;">
+                            <h6 style="display: flex; flex-direction: row;">{{$start}} -></h6>
+                               
+                            <h6>{{ $input_date }} </h6>
+                        </div>
+                    </div>
+                </div>
 
             </div>
             <div class="row">
@@ -152,28 +167,28 @@
 
 
                                     <div style="display:flex; flex-direction: row;">
-                                        <h6 for="">Số điện thoại: </h6>
+                                        <h6 for="">電話番号: </h6>
                                         <p class="mb-3">
                                             {{ $item->phone }}
                                         </p>
                                     </div>
 
                                     <div style="display:flex; flex-direction: row;">
-                                        <h6 for="">Email: </h6>
+                                        <h6 for="">Eメール: </h6>
                                         <p class="mb-3">
                                             {{ $item->email }}
                                         </p>
                                     </div>
 
                                     <div style="display:flex; flex-direction: row;">
-                                        <h6 for="">Experience: </h6>
+                                        <h6 for="">経験: </h6>
                                         <p class="mb-3">
                                             {{ $item->experience }}
                                         </p>
                                     </div>
 
                                     <div style="display:flex; flex-direction: row;">
-                                        <h6 for="">Major: </h6>
+                                        <h6 for="">専門: </h6>
                                         <p class="mb-3">
                                             {{ $item->major }}
                                         </p>
@@ -187,20 +202,21 @@
                                         <h3 class="mb-0 font-weight-semibold">{{ $item->total_hours_creator }}h</h3>
                                     </div>
 
-                                    <form action="{{ route('getevent', [$project_id, $item->main_id]) }}">
+                                    {{-- <form action="{{ route('getevent', [$project_id, $item->main_id]) }}">
                                         <button type="submit" class="btn btn-custom  mt-4 text-white"><i
                                                 class="icon-cart-add mr-2"></i> show detail</button>
-                                    </form>
+                                    </form> --}}
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
             </div>
+            {{-- {{ $creators_info->appends(request()->query())->links('pagination::bootstrap-4') }}     --}}
         </div>
     </div>
     </div>
-
+    
 </body>
 
 </html>

@@ -29,7 +29,12 @@ class AdminCreatorManage extends Controller
         $project_info->each(function ($project) use ($creator_id) {
             $total_hours = Events::where('project_id', $project->id)->where('creator_id',$creator_id)->sum('hours');
             $project->total_hours = $total_hours;
+            $project->creator_id = $creator_id;
         });
         return $project_info;
     }
+
+    // public function statistical(){
+
+    // }
 }

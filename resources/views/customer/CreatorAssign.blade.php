@@ -46,6 +46,7 @@
 
         .wrap {
             height: 100vh;
+            width: 100%;
         }
 
         .contentwraper {
@@ -64,21 +65,67 @@
             background-color: #d7d7a0;
         }
 
-        .wrap-content:hover{
+        .wrap-content:hover {
             background-color: rgb(109, 99, 88);
             color: aliceblue;
             cursor: pointer;
             transition: 0.2s linear 0.2s;
         }
 
-        .btn-custom{
+        .btn-custom {
             background-color: #607bdf;
             width: 112px;
             padding: 12px 4px;
             border-radius: 20px;
         }
-        .btn-custom:hover{
-            opacity:0.6;
+
+        .btn-custom:hover {
+            opacity: 0.6;
+        }
+
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+
+        .search {
+            width: 100%;
+            position: relative;
+            display: flex;
+        }
+
+        .searchTerm {
+            width: 100%;
+            border: 3px solid #00B4CC;
+            border-right: none;
+            padding: 5px;
+            height: 36px;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+            color: #9DBFAF;
+        }
+
+        .searchTerm:focus {
+            color: #00B4CC;
+        }
+
+        .searchButton {
+            width: 40px;
+            height: 36px;
+            border: 1px solid #00B4CC;
+            background: #00B4CC;
+            text-align: center;
+            color: #fff;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 20px;
+
+        }
+
+        .wrapsearch {
+            width: 30%;
+            /* position: absolute; */
+            /* top: 50%; */
+            /* left: 50%; */
+            /* transform: translate(-50%, -50%); */
         }
     </style>
 </head>
@@ -91,7 +138,7 @@
         <!-- Page Content  -->
         <div class="contentwraper  mt-50 mb-50">
             <div class="row">
-                
+
                 <div class="col-lg-4 col-6 ml-4">
                     <!-- small box -->
                     <div class="Toast bg-success">
@@ -109,11 +156,12 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-6 ml-4">
-                    <form action="{{route('customer.project.search',$projectId)}}" method="POST">
+                <div class="col-lg-4 col-6 ml-4 wrapsearch">
+                    <form action="{{ route('customer.project.search', $projectId) }}" method="POST" style="display: flex;">
                         @csrf
-                        <input type="date" name="date" id="date">
-                        <button type="submit" id="search-button">Search</button>
+                        <input type="date" name="date" id="date" class="searchTerm">
+                        <button type="submit" id="search-button" class="searchButton"><i
+                                class="fa fa-search"></i></button>
                     </form>
                 </div>
 
@@ -140,28 +188,28 @@
 
 
                                     <div style="display:flex; flex-direction: row;">
-                                        <h6 for="">Số điện thoại: </h6>
+                                        <h6 for="">電話番号: </h6>
                                         <p class="mb-3">
                                             {{ $item->phone }}
                                         </p>
                                     </div>
 
                                     <div style="display:flex; flex-direction: row;">
-                                        <h6 for="">Email: </h6>
+                                        <h6 for="">メール: </h6>
                                         <p class="mb-3">
                                             {{ $item->email }}
                                         </p>
                                     </div>
 
                                     <div style="display:flex; flex-direction: row;">
-                                        <h6 for="">Experience: </h6>
+                                        <h6 for="">経験: </h6>
                                         <p class="mb-3">
                                             {{ $item->experience }}
                                         </p>
                                     </div>
 
                                     <div style="display:flex; flex-direction: row;">
-                                        <h6 for="">Major: </h6>
+                                        <h6 for="">専門: </h6>
                                         <p class="mb-3">
                                             {{ $item->major }}
                                         </p>
@@ -169,15 +217,15 @@
                                 </div>
 
                                 <div class="mt-3 mt-lg-0 ml-lg-3 text-center">
-                                   
+
                                     <div class="hours">
                                         <h3 class="mb-0 font-weight-semibold">{{ $item->total_hours_creator }}h</h3>
                                     </div>
 
-                                    <form action="{{ route('getevent', [$projectId, $item->main_id]) }}">
-                                    <button type="submit" class="btn btn-custom  mt-4 text-white"><i
-                                        class="icon-cart-add mr-2"></i> show detail</button>
-                                </form>
+                                    <form action="{{ route('getEventCustomer', [$projectId, $item->main_id]) }}">
+                                        <button type="submit" class="btn btn-custom  mt-4 text-white"><i
+                                                class="icon-cart-add mr-2"></i> 詳細</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -187,7 +235,7 @@
         </div>
     </div>
     </div>
-   
+
 </body>
 
 </html>

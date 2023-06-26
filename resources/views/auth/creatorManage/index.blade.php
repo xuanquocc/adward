@@ -10,39 +10,16 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
-    <style>
-        .wrap {
-            height: 100vh;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-        }
-
-        .modal-content {
-            min-width: 1100px;
-            /* Adjust the value as needed */
-            margin-right: 100px;
-            /* Center the modal content horizontally */
-        }
-
-        @media (min-width: 576px) {
-            .modal-dialog{
-                max-width: 1100px !important;
-                margin: 1.75rem auto;
-            }
-        }
-    </style>
+   
 </head>
 
 <body>
 
-    <div class="d-flex wrap">
+    <div style="display: flex; flex-direction:row; height: auto;">
+
         @include('publicView.sidebar')
 
-        <!-- Page Content  -->
-        <div class="bg-light p-4 flex-grow-1 ">
+        <div class="bg-light p-4 flex-grow-1" style="height: 100vh;">
             @foreach ($creators as $item)
                 <div class="row justify-content-center mb-3">
                     <div class="col-md-12 col-xl-10">
@@ -65,28 +42,28 @@
                                     <div class="col-md-6 col-lg-6 col-xl-6">
                                         <h2><b>{{ $item->name }}</b></h2>
                                         <div style="display: flex; flex-direction:row;">
-                                            <label for="">Email: </label>
+                                            <label for="">Eメール: </label>
                                             <p class="text-truncate mb-4 mb-md-0">
                                                 {{ $item->email }}
                                             </p>
                                         </div>
 
                                         <div style="display: flex; flex-direction:row;">
-                                            <label for="">Phone:
+                                            <label for="">電話番号:
                                             </label>
                                             <p class="text-truncate mb-4 mb-md-0">
                                                 {{ $item->phone }}
                                             </p>
                                         </div>
                                         <div style="display: flex; flex-direction:row;">
-                                            <label for="">Experience:
+                                            <label for="">経験:
                                             </label>
                                             <p class="text-truncate mb-4 mb-md-0">
                                                 {{ $item->experience }}
                                             </p>
                                         </div>
                                         <div style="display: flex; flex-direction:row;">
-                                            <label for="">Major: </label>
+                                            <label for="">専門: </label>
                                             <p class="text-truncate mb-4 mb-md-0">
                                                 {{ $item->major }}
                                             </p>
@@ -95,30 +72,14 @@
                                     </div>
                                     <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
                                         <div class="d-flex flex-column mt-4">
-
-
-                                            <button class="btn btn-outline-primary btn-sm mt-2" type="submit">
-                                                Assign
-                                            </button>
-
-                                        </div>
-                                        <div class="d-flex flex-column mt-4">
-
-
                                             <form action="{{ route('admin.creator.project', $item->main_id) }}">
                                                 <button class="btn btn-outline-primary btn-sm mt-2" type="button"
                                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                                                     data-id="{{ $item->main_id }}">
-                                                    Assign
+                                                    割当
                                                 </button>
                                             </form>
-
-
                                         </div>
-                                        {{-- Modal --}}
-
-
-
                                     </div>
                                 </div>
                             </div>
@@ -126,17 +87,17 @@
                     </div>
                 </div>
             @endforeach
-
-            {{ $creators->appends(request()->query())->links('pagination::bootstrap-4') }}
+                
+                {{ $creators->appends(request()->query())->links('pagination::bootstrap-4') }}
         </div>
-
     </div>
+
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-scrollable" style="margin-right:744px;">
+            <div class="modal-content" style="min-width:1000px;">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">List Project
+                    <h5 class="modal-title" id="staticBackdropLabel">プロジェクトの一覧表示
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -145,11 +106,11 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>Customer</th>
-                                <th>Start</th>
-                                <th>Deadline</th>
-                                <th>Total</th>
+                                <th>名前</th>
+                                <th>クリエイター</th>
+                                <th>から始まる</th>
+                                <th>締め切り</th>
+                                <th>合計時間</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -164,7 +125,7 @@
             </div>
         </div>
     </div>
-    </div>
+
     <script>
         $('#staticBackdrop').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget); // Lấy button đã nhấp để mở modal
@@ -184,24 +145,47 @@
 
                 success: function(response) {
                     // Xóa các hàng dữ liệu hiện có trong bảng
-                    console.log(response);
                     table.find('tbody').empty();
 
                     // Thêm dữ liệu mới vào bảng
                     response.forEach(function(project) {
+                        console.log(project);
                         var row = $('<tr></tr>');
 
                         // Tạo các cột dữ liệu cho từng dự án
                         var idCell = $('<td></td>').text(project.id);
                         var nameCell = $('<td></td>').text(project.name);
                         var customerCell = $('<td></td>').text(project.customer);
-                        var startCell = $('<td></td>').text(project.start);
-                        var deadlineCell = $('<td></td>').text(project.deadline);
-                        var actionCell = $('<td></td>').html(project.total_hours);  
+                        var startDate = new Date(project.start);
+                        var formattedStartDate = startDate.toLocaleDateString('ja-JP');
+                        var startCell = $('<td></td>').text(formattedStartDate);
 
-                        // Thêm các cột vào hàng
+                        var deadlineDate = new Date(project.deadline);
+                        var formattedDeadlineDate = deadlineDate.toLocaleDateString('ja-JP');
+                        var deadlineCell = $('<td></td>').text(formattedDeadlineDate);
+
+                        var actionCell = $('<td></td>').html(project.total_hours);
+                        var detailHoursCell = $('<td></td>');
+                        var form = $('<form></form>').attr('action',
+                            '{{ route('getEventCustomer', [':projectId', ':creatorId']) }}'
+                        );
+                        form.attr('method', 'GET'); // Thêm phương thức GET cho form
+                        var projectIdInput = $('<input>').attr('type', 'hidden').attr('name',
+                            'projectId').val(project.id);
+                        var creatorIdInput = $('<input>').attr('type', 'hidden').attr('name',
+                            'creatorId').val(project.creator_id);
+                        var submitButton = $('<button></button>').attr('type', 'submit').text(
+                            '詳細');
+
+                        form.append(projectIdInput, creatorIdInput, submitButton);
+                        detailHoursCell.append(form);
+
+                        // Thay thế các giá trị ":projectId" và ":creatorId" bằng giá trị thực tế
+                        form.attr('action', form.attr('action').replace(':projectId', project
+                            .id).replace(':creatorId', project.creator_id));
+
                         row.append(idCell, nameCell, customerCell, startCell, deadlineCell,
-                            actionCell);
+                            actionCell, detailHoursCell);
 
                         // Thêm hàng vào tbody của bảng
                         table.find('tbody').append(row);

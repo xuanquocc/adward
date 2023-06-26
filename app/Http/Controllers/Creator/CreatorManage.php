@@ -55,7 +55,6 @@ class CreatorManage extends Controller
 
     public function getEvent($id, $creator_id)
     {
-        // dd($creator_id);
         $events = array();
         $auth_current = Auth::user()->id;
         $workings = Events::where('project_id', $id)->where('creator_id',$auth_current)->get();
@@ -75,12 +74,6 @@ class CreatorManage extends Controller
 
     }
 
-    public function getEvents($creatorId)
-{
-    // Truy vấn và trả về dữ liệu sự kiện dựa trên $creatorId
-    $events = Events::where('creator_id', $creatorId)->get();
-    return response()->json(['events' => $events]);
-}
 
     public function store(Request $request)
     {

@@ -2,9 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
+    
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -15,8 +13,7 @@
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 </head>
 
-<body class="hold-transition sidebar-mini">
-    <aside class=" sidebar-dark-primary elevation-4">
+    <aside class="elevation-4" style="background-color: antiquewhite">
         <!-- Brand Logo -->
        
 
@@ -55,64 +52,15 @@
                         <a href="{{route('home')}}" class="nav-link">
                             <i class="nav-icon far fa-calendar-alt"></i>
                             <p>
-                                Home
+                                ホームページ
                                 <span class="badge badge-info right">2</span>
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="../gallery.html" class="nav-link">
-                            <i class="nav-icon far fa-image"></i>
-                            <p>
-                                Gallery
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../kanban.html" class="nav-link">
-                            <i class="nav-icon fas fa-columns"></i>
-                            <p>
-                                Kanban Board
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon far fa-envelope"></i>
-                            <p>
-                                Mailbox
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="../mailbox/mailbox.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Inbox</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../mailbox/compose.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Compose</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../mailbox/read-mail.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Read</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-
-
-
-                    <li class="nav-item">
+                   <li class="nav-item">
                         <a href="{{ route('admin.users.logout') }}" class="nav-link">
                             <i class="nav-icon far fa-circle text-info"></i>
-                            <p>logout</p>
+                            <p>ログアウト</p>
                         </a>
                     </li>
                 </ul>
@@ -141,6 +89,5 @@
             bsCustomFileInput.init();
         });
     </script>
-</body>
 
 </html>

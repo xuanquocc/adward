@@ -29,18 +29,19 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">労働時間と仕事内容
+                            </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="wrap">
-                                <label for="">Tile</label>
+                            <div class="">
+                                <label for="">コンテンツ</label>
                                 <input type="text" class="form-control" id="title" name="title">
                                 <span id="titleError" class="text-danger"></span>
                             </div>
-                            <div class="wrap">
-                                <label for="">Hours workings</label>
+                            <div class="">
+                                <label for="">労働時間</label>
                                 <input type="text" class="form-control" id="hours" name="hours">
                                 <input type="hidden" name="projectId" value="{{ $projectId }}" id="projectId">
                                 <input type="hidden" name="creatorId" value="{{ $creatorId }}" id="creatorId">
@@ -49,8 +50,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" id="saveBtn" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">近い</button>
+                            <button type="button" id="saveBtn" class="btn btn-primary">保存</button>
                         </div>
                     </div>
                 </div>
@@ -61,14 +62,20 @@
                     Launch demo modal
                 </button>
 
-                <form id="searchForm">
+                {{-- <form id="searchForm">
                     <label for="dateField">Search by Date</label>
                     <input type="date" name="dateField" id="dateField">
                     <button type="submit" id="dateBtn">Search</button>
-                </form>
+                </form> --}}
+                <div class="col-lg-4 col-6 ml-4 wrapsearch">
+                    <form id="searchForm" style="display: flex;">
+                        <input type="date" name="dateField" id="dateField" class="searchTerm" style="padding: 16px;">
+                        <button type="submit" id="dateBtn" class="searchButton"><i
+                                class="fa fa-search"></i></button>
+                    </form>
+                </div>
                 <div class="row">
                     <div class="col-12">
-                        <h3 class="text-center mt-5">Full calendar</h3>
                         <div class="col-md-11 offset-1 mt-5 mb-5">
                             <div id="calendar">
 
@@ -105,10 +112,6 @@
                 },
                 events: working,
                 eventRender: function(event, element, view) {
-                    // Display event details
-                    // var creator_id = $('#creatorId').val();
-                    // console.log(event['creator_id ']);
-                    // if (event['creator_id '] == creator_id) {
                     var startTime = moment(event.start).format('HH:mm');
                     var endTime = moment(event.end).format('HH:mm');
                     var eventTime = startTime;
@@ -118,20 +121,10 @@
                         '<p><b>Hours:</b> ' + event.hours + '</p>' +
                         '</div>';
                     element.find('.fc-title').append(eventDetails);
-                    // } else {
-                    //     element.hide();
-                    // }
                 },
                 selectable: true,
                 selectHelper: true,
                 select: function(start, end, allDay) {
-
-
-                    // if (creatorid != currenUserId) {
-
-                    //     alert('Không được thả bậy');
-                    //     return false;
-                    // } else {
                     $('#workingModal').modal('toggle')
                     $('#saveBtn').click(function() {
                         if (isSaving) {
@@ -181,15 +174,7 @@
 
 
                 eventDrop: function(event) {
-
-
-                    // if (creatorid != currenUserId) {
-
-                    //     alert('Không được thả bậy');
-                    //     return false;
-                    // } else {
                     var id = event.id;
-                    console.log(event['creator_id ']);
                     var start_date = moment(event.start).format('YYYY-MM-DD');
                     var end_date = moment(event.end).format('YYYY-MM-DD');
                     $.ajax({
@@ -210,15 +195,8 @@
                     // }
                 },
                 eventClick: function(event) {
-
-
-                    // if (creatorid != currenUserId) {
-
-                    //     alert('Không được thả bậy');
-                    //     return false;
-                    // } else {
                     var id = event.id;
-                    if (confirm('Are you sure want to remove it')) {
+                    if (confirm('本当に削除してもよろしいですか')) {
                         $.ajax({
                             url: "{{ route('calendar.destroy', '') }}" + '/' + id,
                             type: "DELETE",
@@ -232,7 +210,6 @@
                             },
                         });
                     }
-                    // }
 
                 },
                 selectAllow: function(event) {
@@ -263,6 +240,7 @@
                     },
                     error: function(xhr, textStatus, error) {
                         console.log(error);
+                        swal("日付が見つかりません!", "Event Updated!", "error");
                     }
                 });
             });

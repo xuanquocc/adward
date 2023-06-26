@@ -46,11 +46,13 @@ class Customer extends Controller
     {
        if($request->date != null){
         $input_date = $request->date;
-        $input_date = Carbon::createFromFormat('Y-m-d', $input_date);
+        $formattedDate = Carbon::parse($input_date)->format('d/m/Y'); 
 
         $creator_id = Tasks::where('project_id', $project_id)->pluck('creator_id')->toArray();
         $project_name = Projects::where('id', $project_id)->pluck('name')->first();
-        $creators_info = Creators::whereIn('main_id', $creator_id)->get();
+        $project_start = Projects::where('id', $project_id)->pluck('start')->first();
+        $project_startTime = Carbon::parse($project_start)->format('d/m/Y'); 
+        $creators_info = Creators::whereIn('main_id', $creator_id)->paginate(3);
         $creators_info->each(function ($creator) use ($project_id, $input_date) {
             $total_creator_hours = Events::where('start', '<=', $input_date)
                 ->where('project_id', $project_id)
@@ -69,10 +71,33 @@ class Customer extends Controller
             'creators_info' => $creators_info,
             'project_id' => $project_id,
             'project_name' => $project_name,
-            'input_date' => $input_date,
+            'input_date' => $formattedDate,
+            'start' => $project_startTime,
         ])->with('success',"Search was successful!");
        }else{
         return back()->with('error', 'Search failed. Please try again.');
        }
+    }
+
+    public function getEventCustomer($id, $creator_id)
+    {
+        $events = array();
+        $creator_name = Creators::where('main_id',$creator_id)->pluck('name')->first();
+        $workings = Events::where('project_id', $id)->where('creator_id',$creator_id)->get();
+        foreach ($workings as $working) {
+
+            $events[] = [
+                'id' => $working->id,
+                'title' => $working->title,
+                'hours' => $working->hours,
+                'start' => $working->start,
+                'project_id ' => $id,
+                'creator_id ' => $working->creator_id,
+                'end' => $working->end,
+            ];
+        }
+
+        return view('customer.creatorDetail', ['event' => $events, 'projectId' => $id, 'creatorId' => $creator_id, 'creatorName' => $creator_name]);
+
     }
 }

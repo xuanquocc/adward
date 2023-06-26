@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | General Form Elements</title>
+  <title>クライアント登録</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -13,30 +13,14 @@
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
+<div class="wrapper d-flex">
   
 
   <!-- Main Sidebar Container -->
   @include('publicView.sidebar')
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>General Form</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">General Form</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
+  <div class="content-wrapper w-100 ml-0 pt-5">
 
     <!-- Main content -->
     <section class="content">
@@ -46,92 +30,63 @@
           <div class="col-md-6">
             <!-- general form elements -->
             <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Quick Example</h3>
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
+              
               <form action="{{ route('admin.customer.register') }}" method="post">
                 @csrf
                 @include('auth.alert')
 
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Đăng ký client</h3>
+                        <h3 class="card-title">クライアント登録</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
                     <form>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="name">Name</label>
+                                <label for="name">名前</label>
                                 <input type="text" name="name" class="form-control" id="name" autocomplete="off"
-                                    placeholder="Name">
+                                    placeholder="名前">
                             </div>
                             <div class="form-group">
-                                <label for="email">Email address</label>
+                                <label for="email">電子メールアドレス</label>
                                 <input type="email" name="email" class="form-control" id="email"
-                                    placeholder="Enter email">
+                                    placeholder="電子メールアドレス">
                             </div>
                             <div class="form-group">
-                                <label for="location">Location</label>
+                                <label for="location">位置</label>
                                 <input type="text" name="location" class="form-control" id="location"
-                                    placeholder="Enter Location">
+                                    placeholder="位置">
                             </div>
                             <div class="form-group">
-                                <label for="password">Password</label>
+                                <label for="password">パスワード</label>
                                 <input type="password" name="password" class="form-control" id="password"
-                                    placeholder="Password">
+                                    placeholder="パスワード">
                             </div>
                             <div class="form-group">
-                                <label for="passwordConfirm">Password</label>
+                                <label for="passwordConfirm">パスワードの確認</label>
                                 <input type="password" name="passwordConfirm" class="form-control" id="passwordConfirm"
-                                    placeholder="Password Confirm">
+                                    placeholder="パスワードの確認">
                             </div>
 
-                            {{-- <div class="form-group">
-                          <label for="exampleInputFile">File input</label>
-                          <div class="input-group">
-                            <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="exampleInputFile">
-                              <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                            </div>
-                            <div class="input-group-append">
-                              <span class="input-group-text">Upload</span>
-                            </div>
-                          </div>
+                           
                         </div>
-                        <div class="form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div> --}}
-                        </div>
-                        <!-- /.card-body -->
-
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">作成</button>
                         </div>
                     </form>
                 </div>
             </form>
             </div>
-            <!-- /.card -->
-
-           
+            
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+        
+      </div>
     </section>
-    <!-- /.content -->
+  
   </div>
-  <!-- /.content-wrapper -->
- 
-
- 
 </div>
-<!-- ./wrapper -->
 
-<!-- jQuery -->
 <script src="../../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
