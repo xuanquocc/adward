@@ -46,8 +46,7 @@ class LoginController extends Controller
                 return redirect()->route('admin.home');
             } 
         }else {
-            Session::flash('error', 'メールアドレスまたはパスワードが正しくありませ');
-            return redirect()->back();
+            return redirect()->back()->with('error', 'メールアドレスまたはパスワードが正しくありませ');
         }
         
     }
@@ -69,7 +68,7 @@ class LoginController extends Controller
         )) {
             if(Auth::user()->status === 0){
                 Auth::logout();
-                return redirect()->route('creator.login')->with('error','アカウントがアクティブ化されていません');
+                return redirect()->route('creator.login')->with('error','アカウントはアクティベートされていません。メールをチェックしてアクティベーション コードを取得してください。');
             }else{
                 if(Auth::user()->type === 'creator'){
                     if($creator == null){

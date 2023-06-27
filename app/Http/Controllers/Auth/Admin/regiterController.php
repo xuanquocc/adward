@@ -18,29 +18,30 @@ class regiterController extends Controller
             'passwordConfirm' => 'required|same:password'
         ]);
         $token = strtoupper(Str::random(10));
+        $existingUser = User::where('email', $request->email)->first();
         $data = $request->only('email','name','password');
         $password_h = bcrypt($request->password);
         $data['password'] = $password_h;
         $data['token'] = $token;
         $data['type'] = 'creator';
-
+        $users = User::all();
         if($customer = User::create($data)){
             Mail::send('auth.emails.active',compact('customer'),function($email) use($customer){
                 $email->subject('Adward Japan');
                 $email->to($customer->email, $customer->name);
             });
-            return redirect()->route('creator.login')->with('success','đăng ký thành công');
+            return redirect()->route('creator.login')->with('success','サインアップの成功');
+        }else if ($existingUser) {
+            return redirect()->back()->with('error', 'このメールは既に存在します');
         }
-
-        return redirect()->back();
     }
     public function actived( $customerID, $token){  
         $customer = User::where('id',$customerID)->first();
         if($customer->token === $token){
             $customer->update(['status' => 1, 'token' => null]);
-            return redirect()->route('creator.login')->with('success','Xác nhận email thành công');
+            return redirect()->route('creator.login')->with('success','メール確認が成功しました');
         }else{
-            return redirect()->route('creator.login')->with('error','Mã xác nhận bạn gửi không khớp ');
+            return redirect()->route('creator.login')->with('error','送信した確認コードが一致しません');
         }
     }
 }

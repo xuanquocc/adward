@@ -24,7 +24,8 @@
                         </div>
                     </div> --}}
                     <div class="col_md_sign_up">
-                        <div class="cont_ba_opcitiy">
+                        
+                        <div class="cont_ba_opcitiy">   
                             <h2>登録</h2>
 
 
@@ -60,6 +61,7 @@
                     <form action="{{route('register.creator')}}" method="POST">
                         @csrf
                         <div class="cont_form_sign_up">
+                            @include('auth.alert')
                             <a href="#" onclick="hidden_login_and_sign_up()"><i
                                     class="material-icons">&#xE5C4;</i></a>
                             <h2>登録</h2>
