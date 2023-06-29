@@ -94,7 +94,7 @@
 
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" style="margin-right:744px;">
+        <div class="modal-dialog modal-dialog-scrollable" style="margin-right:160px;">
             <div class="modal-content" style="min-width:1000px;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">プロジェクトの一覧表示
