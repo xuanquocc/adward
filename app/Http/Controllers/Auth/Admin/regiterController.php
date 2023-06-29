@@ -25,14 +25,14 @@ class regiterController extends Controller
         $data['token'] = $token;
         $data['type'] = 'creator';
         $users = User::all();
-        if($customer = User::create($data)){
+        if($existingUser != null){
+            return redirect()->back()->with('error', 'このメールは既に存在します');
+        }else if($customer = User::create($data)){
             Mail::send('auth.emails.active',compact('customer'),function($email) use($customer){
                 $email->subject('Adward Japan');
                 $email->to($customer->email, $customer->name);
             });
             return redirect()->route('creator.login')->with('success','サインアップの成功');
-        }else if ($existingUser) {
-            return redirect()->back()->with('error', 'このメールは既に存在します');
         }
     }
     public function actived( $customerID, $token){  

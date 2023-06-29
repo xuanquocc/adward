@@ -6,29 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/registerCreator.css') }}">
-    <title>Document</title>
+    <title>Register</title>
 </head>
 
 <body>
     <div class="cotn_principal">
         <div class="cont_centrar">
+            @include('auth.alert')
 
             <div class="cont_login">
                 <div class="cont_info_log_sign_up">
-                    {{-- <div class="col_md_login">
-                        <div class="cont_ba_opcitiy">
-
-                            <h2>LOGIN</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            <button class="btn_login" onclick="change_to_login()">LOGIN</button>
-                        </div>
-                    </div> --}}
                     <div class="col_md_sign_up">
-                        
-                        <div class="cont_ba_opcitiy">   
+
+                        <div class="cont_ba_opcitiy">
                             <h2>登録</h2>
-
-
                             <p>アカウントをお持ちでない場合は、ここから登録してください</p>
 
                             <button class="btn_sign_up" onclick="change_to_sign_up()">登録</button>
@@ -39,15 +30,13 @@
 
                 <div class="cont_back_info">
                     <div class="cont_img_back_grey">
-                        <img src="{{asset('/images/registerbackground.jpg')}}"
-                            alt="" />
+                        <img src="{{ asset('/images/registerbackground.jpg') }}" alt="" />
                     </div>
 
                 </div>
                 <div class="cont_forms">
                     <div class="cont_img_back_">
-                        <img src="{{asset('/images/registerbackground.jpg')}}"
-                            alt="" />
+                        <img src="{{ asset('/images/registerbackground.jpg') }}" alt="" />
                     </div>
                     <div class="cont_form_login">
                         <a href="#" onclick="hidden_login_and_sign_up()"><i
@@ -58,10 +47,9 @@
                         <button class="btn_login" onclick="change_to_login()">LOGIN</button>
                     </div>
 
-                    <form action="{{route('register.creator')}}" method="POST">
+                    <form action="{{ route('register.creator') }}" method="POST">
                         @csrf
                         <div class="cont_form_sign_up">
-                            @include('auth.alert')
                             <a href="#" onclick="hidden_login_and_sign_up()"><i
                                     class="material-icons">&#xE5C4;</i></a>
                             <h2>登録</h2>
@@ -70,7 +58,7 @@
                             <input type="password" name="password" placeholder="パスワード" />
                             <input type="password" name="passwordConfirm" placeholder="パスワードを認証する" />
                             <button class="btn_sign_up" type="submit" onclick="change_to_sign_up()">登録</button>
-    
+
                         </div>
                     </form>
 

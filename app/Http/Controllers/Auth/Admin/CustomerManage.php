@@ -12,6 +12,7 @@ use App\Models\Tasks;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mail;
 use Mockery\Undefined;
 
 class CustomerManage extends Controller
@@ -76,10 +77,10 @@ class CustomerManage extends Controller
                     'customers_id' => $request->customer,
                 ]
             );
-            session()->flash('success', 'Thêm thành công!');
+            session()->flash('success', '成功するプロジェクトを作成する');
             return redirect()->route('admin.customer');
         } else {
-            session()->flash('error', 'Yêu cầu nhập đầy đủ thông tin');
+            session()->flash('error', '完全な情報が必要です');
             return redirect()->back();
         }
     }
@@ -105,14 +106,26 @@ class CustomerManage extends Controller
             return view('auth.clientManage.assignScreen',['creator' => $creators,'projectId' => $projects_id->id]);
         }
     }
-    public function assign( $project_id, $creator_id){
-        DB::table('tasks')->insert([
-            'project_id' => $project_id,
-            'creator_id' => $creator_id
-        ]);
-        session()->flash('success', 'Assign thành công!');
-        return redirect()->back();
-    }
+    public function assign($project_id, $creator_id)
+{
+    $creator_email = User::where('id', $creator_id)->pluck('email')->first();
+    $creator_name = User::where('id', $creator_id)->pluck('name')->first();
+    $project_name = Projects::where('id', $project_id)->pluck('name')->first();
+    
+    DB::table('tasks')->insert([
+        'project_id' => $project_id,
+        'creator_id' => $creator_id
+    ]);
+    
+    Mail::send('auth.emails.assignSucces', compact('creator_email', 'project_name', 'creator_name'), function($email) use ($creator_email, $project_name, $creator_name) {
+        $email->subject('Adward Japan');
+        $email->to($creator_email)->subject($project_name)->subject($creator_name);
+    });
+    
+    session()->flash('success', 'Assign thành công!');
+    return redirect()->back();
+}
+
 
     public function showTotalCreator($project_id){
         $project_ids = Tasks::where('project_id',$project_id)->pluck('creator_id')->toArray();

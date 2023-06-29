@@ -35,8 +35,7 @@ class RegisterCustumer extends Controller
                     'location' => $request->location,
                 ]
             );
-            session()->flash('status', 'đăng ký thành công');
-            return redirect()->route('admin.customer');
+            return redirect()->route('admin.customer')->with('success','クライアントが正常に作成されました');
         }
 
     }
