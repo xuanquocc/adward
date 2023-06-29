@@ -8,25 +8,6 @@
     @include('library.sidebarUser')
     <link rel="stylesheet" href="{{ asset('css/dashboardCreator.css') }}">
     <style>
-        .ag-courses_item:nth-child(2n) .ag-courses-item_bg {
-            background-color: #3ecd5e;
-        }
-
-        .ag-courses_item:nth-child(3n) .ag-courses-item_bg {
-            background-color: #e44002;
-        }
-
-        .ag-courses_item:nth-child(4n) .ag-courses-item_bg {
-            background-color: #952aff;
-        }
-
-        .ag-courses_item:nth-child(5n) .ag-courses-item_bg {
-            background-color: #cd3e94;
-        }
-
-        .ag-courses_item:nth-child(6n) .ag-courses-item_bg {
-            background-color: #4c49ea;
-        }
         #content{
             display: flex;
             flex-direction: column;
@@ -195,6 +176,18 @@
                                                 始める:
                                                 <span class="ag-courses-item_date">
                                                     {{ \Carbon\Carbon::parse($item->start)->format('d/m/Y') }}
+                                                </span>
+                                            </div>
+                                            <div class="ag-courses-item_date-box">
+                                                締め切り:
+                                                <span class="ag-courses-item_date">
+                                                    {{ \Carbon\Carbon::parse($item->deadline)->format('d/m/Y') }}
+                                                </span>
+                                            </div>
+                                            <div class="ag-courses-item_date-box">
+                                                合計時間:
+                                                <span class="ag-courses-item_date">
+                                                    {{$item->total_hours_creator }}
                                                 </span>
                                             </div>
                                         </a>

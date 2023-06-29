@@ -17,9 +17,21 @@ class CreatorManage extends Controller
     {
         $creator = User::where('id', Auth::user()->id)->first();
         $creator_detail = Creators::where('main_id', Auth::user()->id)->first();
-        $project_assiged = Tasks::where('creator_id', Auth::user()->id)->pluck('project_id');
-        $project_name = Projects::whereIn('id', $project_assiged)->get();
-        return view('creator.index', ['creator' => $creator, 'creatorDetail' => $creator_detail, 'projectName' => $project_name]);
+        $project_assigned = Tasks::where('creator_id', Auth::user()->id)->pluck('project_id');
+        $project_name = Projects::whereIn('id', $project_assigned)->get();
+
+        $project_name->each(function ($project) use ($creator) {
+            $total_hours_creator = Events::where('project_id', $project->id)
+                ->where('creator_id', $creator->id)
+                ->sum('hours');
+            $project->total_hours_creator = $total_hours_creator;
+        });
+
+        return view('creator.index', [
+            'creator' => $creator,
+            'creatorDetail' => $creator_detail,
+            'projectName' => $project_name,
+        ]);
     }
 
     public function editProfile(Request $request)
@@ -57,7 +69,7 @@ class CreatorManage extends Controller
     {
         $events = array();
         $auth_current = Auth::user()->id;
-        $workings = Events::where('project_id', $id)->where('creator_id',$auth_current)->get();
+        $workings = Events::where('project_id', $id)->where('creator_id', $auth_current)->get();
         foreach ($workings as $working) {
 
             $events[] = [
@@ -70,10 +82,9 @@ class CreatorManage extends Controller
                 'end' => $working->end,
             ];
         }
-        return view('creator.fullcalendar', ['event' => $events, 'projectId' => $id, 'creatorId' => $creator_id,'currenUserId' => $auth_current]);
+        return view('creator.fullcalendar', ['event' => $events, 'projectId' => $id, 'creatorId' => $creator_id, 'currenUserId' => $auth_current]);
 
     }
-
 
     public function store(Request $request)
     {
@@ -130,17 +141,17 @@ class CreatorManage extends Controller
     {
         $date = $request->input('date');
 
-       $event_search = Events::where("project_id",$projectId)->whereDate("start",$date)->first();
+        $event_search = Events::where("project_id", $projectId)->whereDate("start", $date)->first();
 
         // $events = array();
         $events[] = [
-                'id' => $event_search->id,
-                'title' => $event_search->title,
-                'hours' => $event_search->hours,
-                'start' => $event_search->start,
-                'creator_id' => $event_search->creator_id,
-                'project_id' =>  $event_search->project_id,
-                'end' => $event_search->end,
+            'id' => $event_search->id,
+            'title' => $event_search->title,
+            'hours' => $event_search->hours,
+            'start' => $event_search->start,
+            'creator_id' => $event_search->creator_id,
+            'project_id' => $event_search->project_id,
+            'end' => $event_search->end,
         ];
         return response()->json(['events' => $events]);
     }

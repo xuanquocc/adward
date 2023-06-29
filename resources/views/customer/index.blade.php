@@ -76,7 +76,7 @@
                                                     </form>
                                                     
                                                     <form action="{{route('customer.project.detail',$item->id)}}" method="get" class="form-action">
-                                                        <button type="submit" class="btn btn-primary">Detail</button>
+                                                        <button type="submit" class="btn btn-primary">詳細</button>
                                                     </form>
                                                 </div>
 
