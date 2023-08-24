@@ -35,35 +35,44 @@ class CreatorManage extends Controller
     }
 
     public function editProfile(Request $request)
-    {
-        if ($request->hasFile('file')) {
-            $user = User::where('id', Auth::user()->id)->get();
-            $current_Creator = Creators::where('email', Auth::user()->email)->first();
-            $file = $request->file;
-            $fileName = $file->getClientOriginalName();
+{
+    $user = User::find(Auth::user()->id);
+    $current_Creator = Creators::where('email', Auth::user()->email)->first();
 
-            $file->move('public/uploads', $file->getClientOriginalName());
-            $thumbnail = $fileName;
-            // $input['thumbnail'] = $thumbnail;
-            User::where('id', Auth::user()->id)->update([
-                'name' => $request->name,
-                'thumbnail' => $thumbnail,
-            ]);
+    if ($request->hasFile('file')) {
+        // Nếu có file ảnh được tải lên, thực hiện cập nhật ảnh
+        $file = $request->file;
+        $fileName = $file->getClientOriginalName();
+        $file->move('public/uploads', $file->getClientOriginalName());
+        $thumbnail = $fileName;
 
-            if (Auth::user()->email == $current_Creator->email) {
-                Creators::where('main_id', Auth::user()->id)->update([
-                    'name' => $request->name,
-                    'phone' => $request->phone,
-                    'experience' => $request->experience,
-                    'major' => $request->major,
-                    'thumbnail' => $thumbnail,
-                ]);
-            }
-
-            session()->flash('Success', 'Cập nhật thành công');
-        }
-        return redirect()->back();
+        $user->thumbnail = $thumbnail;
     }
+
+    // Cập nhật các trường thông tin khác không liên quan đến ảnh
+    $user->name = $request->name;
+    $user->save();
+
+    if (Auth::user()->email == $current_Creator->email) {
+        // Nếu người dùng là creator, thực hiện cập nhật thông tin creator
+        $creator = Creators::where('main_id', Auth::user()->id)->first();
+        $creator->name = $request->name;
+        $creator->phone = $request->phone;
+        $creator->experience = $request->experience;
+        $creator->major = $request->major;
+
+        if (isset($thumbnail)) {
+            // Chỉ cập nhật ảnh nếu có file ảnh được tải lên
+            $creator->thumbnail = $thumbnail;
+        }
+
+        $creator->save();
+    }
+
+    session()->flash('Success', 'Cập nhật thành công');
+    return redirect()->back();
+}
+
 
     public function getEvent($id, $creator_id)
     {

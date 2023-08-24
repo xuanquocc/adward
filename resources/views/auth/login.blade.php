@@ -40,7 +40,7 @@
             justify-content: center;
             height: 75vh;
             width: 100%;
-            background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Mountains-1412683.svg/1280px-Mountains-1412683.svg.png) no-repeat center center;
+            background: url(https://get.wallhere.com/photo/landscape-anime-Background-Art-Japanese-Art-Love-Money-Rock-n-Roll-visual-novel-digital-art-building-artwork-1956735.jpg) no-repeat center center;
             background-size: cover;
         }
 
