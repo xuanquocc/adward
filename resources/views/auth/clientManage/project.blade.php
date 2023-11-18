@@ -77,22 +77,38 @@
 
                                                     <td class="td-control">
                                                         <div class="action" style="display:flex; flex-direction:row;">
-
                                                             <form
-                                                                action="{{ route('admin.creator.project.detail', $project->id) }}"
-                                                                method="get" class="form-action">
-
-                                                                <button type="submit"
-                                                                    class="btn btn-warning mr-3 text-white"><i
-                                                                        class="icon-cart-add mr-2"></i> 詳細</button>
+                                                                action="{{ route('admin.expiredProject', $project->id) }}"
+                                                                method="post" class="form-action">
+                                                                @method('PUT')
+                                                                @csrf
+                                                                @if ($project->expired == 1)
+                                                                    <button type="submit"
+                                                                        class="btn btn-success mr-3 text-white"><i
+                                                                            class="icon-cart-add mr-2"></i>まだ有効</button>
+                                                                @else
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger mr-3 text-white"><i
+                                                                            class="icon-cart-add mr-2"></i>期限切れ</button>
+                                                                @endif
                                                             </form>
-                                                            <form
-                                                                action="{{ route('admin.project.assign', [$project->id, $customer_id]) }}"
-                                                                method="get" class="form-action">
+                                                            @if ($project->expired == 1)
+                                                                <form
+                                                                    action="{{ route('admin.creator.project.detail', $project->id) }}"
+                                                                    method="get" class="form-action">
 
-                                                                <button type="submit"
-                                                                    class="btn btn-primary">割当</button>
-                                                            </form>
+                                                                    <button type="submit"
+                                                                        class="btn btn-warning mr-3 text-white"><i
+                                                                            class="icon-cart-add mr-2"></i>詳細</button>
+                                                                </form>
+                                                                <form
+                                                                    action="{{ route('admin.project.assign', [$project->id, $customer_id]) }}"
+                                                                    method="get" class="form-action">
+
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary">割当</button>
+                                                                </form>
+                                                            @endif
                                                         </div>
 
                                                     </td>
@@ -111,81 +127,86 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        // Bắt sự kiện khi người dùng nhấn nút tìm kiếm
-        $('#searchBtn').click(function(e) {
-            e.preventDefault(); // Ngăn chặn hành vi mặc định của nút submit
+    <script>
+        $(document).ready(function() {
+            // Bắt sự kiện khi người dùng nhấn nút tìm kiếm
+            $('#searchBtn').click(function(e) {
+                e.preventDefault(); // Ngăn chặn hành vi mặc định của nút submit
 
-            var searchValue = $('input[name="table_search"]').val(); // Lấy giá trị từ ô input tìm kiếm
+                var searchValue = $('input[name="table_search"]').val(); // Lấy giá trị từ ô input tìm kiếm
 
-            // Gửi yêu cầu Ajax để tìm kiếm
-            $.ajax({
-                url: "{{ route('searchProject') }}", // Đường dẫn tới URL xử lý tìm kiếm
-                method: 'GET',
-                data: {
-                    search: searchValue // Truyền giá trị tìm kiếm lên server
-                },
-                success: function(response) {
-                    console.log(response);
-                    var customerId = $('#customerId').val();
-                    $('#table tbody').empty();
-                    var row = $('<tr></tr>');
-                    var idCell = $('<td></td>').text(response[0].id);
-                    var nameCell = $('<td></td>').text(response[0].name);
-                    var customerCell = $('<td></td>').text(response[0].customer);
+                // Gửi yêu cầu Ajax để tìm kiếm
+                $.ajax({
+                    url: "{{ route('searchProject') }}", // Đường dẫn tới URL xử lý tìm kiếm
+                    method: 'GET',
+                    data: {
+                        search: searchValue // Truyền giá trị tìm kiếm lên server
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        var customerId = $('#customerId').val();
+                        $('#table tbody').empty();
+                        var row = $('<tr></tr>');
+                        var idCell = $('<td></td>').text(response[0].id);
+                        var nameCell = $('<td></td>').text(response[0].name);
+                        var customerCell = $('<td></td>').text(response[0].customer);
 
-                    var startDate = new Date(response[0].start);
-                    var formattedStartDate = startDate.toLocaleDateString('ja-JP');
-                    var startCell = $('<td></td>').text(formattedStartDate);
+                        var startDate = new Date(response[0].start);
+                        var formattedStartDate = startDate.toLocaleDateString('ja-JP');
+                        var startCell = $('<td></td>').text(formattedStartDate);
 
-                    var deadlineDate = new Date(response[0].deadline);
-                    var formattedDeadlineDate = deadlineDate.toLocaleDateString('ja-JP');
-                    var deadlineCell = $('<td ></td>').text(formattedDeadlineDate);
+                        var deadlineDate = new Date(response[0].deadline);
+                        var formattedDeadlineDate = deadlineDate.toLocaleDateString('ja-JP');
+                        var deadlineCell = $('<td ></td>').text(formattedDeadlineDate);
 
 
-                    var actionCell = $('<td style="display:flex; flex-direction:row;"></td>');
-                    var formDetail = $('<form ></form>').attr('action',
-                        '{{ route('admin.creator.project.detail', ':projectId') }}'
-                    );
-                    var formAssign = $('<form></form>').attr('action',
-                        '{{ route('admin.project.assign', [':projectId', ':customerId']) }}'
-                    );
-                    var projectIdInput = $('<input>').attr('type', 'hidden').attr('name',
-                        'projectId').val(response[0].id);
+                        var actionCell = $(
+                            '<td style="display:flex; flex-direction:row;"></td>');
+                        var formDetail = $('<form ></form>').attr('action',
+                            '{{ route('admin.creator.project.detail', ':projectId') }}'
+                        );
+                        var formAssign = $('<form></form>').attr('action',
+                            '{{ route('admin.project.assign', [':projectId', ':customerId']) }}'
+                        );
+                        var projectIdInput = $('<input>').attr('type', 'hidden').attr('name',
+                            'projectId').val(response[0].id);
 
-                    var customerIdInput = $('<input>').attr('type', 'hidden').attr('name',
-                        'customerId').val(customerId);
+                        var customerIdInput = $('<input>').attr('type', 'hidden').attr('name',
+                            'customerId').val(customerId);
 
-                    var submitButton = $(
-                        '<button class="btn btn-primary  text-white mr-2"></button>').attr(
-                        'type', 'submit').text(
-                        '詳細');
-                    var assignButton = $(
-                        '<button class="btn btn-warning  text-white"></button>').attr(
-                        'type', 'submit').text(
-                        '割当');
-                    formDetail.append(projectIdInput, submitButton);
-                    formAssign.append(projectIdInput, customerIdInput, assignButton)
-                    actionCell.append(formDetail,formAssign);
+                        var submitButton = $(
+                                '<button class="btn btn-primary  text-white mr-2"></button>')
+                            .attr(
+                                'type', 'submit').text(
+                                '詳細');
+                        var assignButton = $(
+                            '<button class="btn btn-warning  text-white"></button>').attr(
+                            'type', 'submit').text(
+                            '割当');
+                        formDetail.append(projectIdInput, submitButton);
+                        formAssign.append(projectIdInput, customerIdInput, assignButton)
+                        actionCell.append(formDetail, formAssign);
 
-                    formAssign.attr('action', formAssign.attr('action').replace(':projectId',
-                        response[0].id).replace(':customerId', customerId));
-                    formDetail.attr('action', formDetail.attr('action').replace(':projectId',
-                        response[0].id));
+                        formAssign.attr('action', formAssign.attr('action').replace(
+                            ':projectId',
+                            response[0].id).replace(':customerId', customerId));
+                        formDetail.attr('action', formDetail.attr('action').replace(
+                            ':projectId',
+                            response[0].id));
 
-                    row.append(idCell, nameCell, customerCell, startCell, deadlineCell, actionCell);
+                        row.append(idCell, nameCell, customerCell, startCell, deadlineCell,
+                            actionCell);
 
-                    $('#table tbody').append(row);
-                },
-                error: function(xhr) {
-                    // Xử lý lỗi nếu có
-                    console.log(xhr.responseText);
-                }
+                        $('#table tbody').append(row);
+                    },
+                    error: function(xhr) {
+                        // Xử lý lỗi nếu có
+                        console.log(xhr.responseText);
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 </body>
 
 </html>

@@ -13,7 +13,8 @@ class Projects extends Model
         'customers_id',
         'customer',
         'deadline',
-        'start'
+        'start',
+        'expired'
     ];
 
     function customer(){

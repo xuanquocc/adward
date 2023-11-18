@@ -37,4 +37,6 @@ class AdminCreatorManage extends Controller
     // public function statistical(){
 
     // }
+
+   
 }
