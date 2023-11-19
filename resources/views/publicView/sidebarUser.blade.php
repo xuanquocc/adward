@@ -14,6 +14,10 @@
                 <a href="{{route('creator.home')}}" style="text-decoration: none;">ホームページ</a>
                 @endif
             </li>
+
+            <li>
+                <a href="{{ route('blog') }}" style="text-decoration: none;" >ブログ</a>
+            </li>
             
             <li>
                 <a href="{{ route('admin.users.logout') }}" style="text-decoration: none;" >ログアウト</a>
