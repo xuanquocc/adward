@@ -43,8 +43,8 @@ Route::group(['prefix' => '/'], function () {
     Route::get('search/customer',[CustomerManage::class,'searchTable'])->name('searchTable');
     Route::get('search/project',[CustomerManage::class,'searchProject'])->name('searchProject');
     Route::post('admin/customer/register', [RegisterCustumer::class, 'createClient'])->name('admin.customer.register');
-    Route::get('admin/custumer', [CustomerManage::class, 'index'])->name('admin.customer');
-    Route::get('admin/custumer/create', [CustomerManage::class, 'addCustomerScreen'])->name('admin.customer.create');
+    Route::get('admin/customer', [CustomerManage::class, 'index'])->name('admin.customer');
+    Route::get('admin/customer/create', [CustomerManage::class, 'addCustomerScreen'])->name('admin.customer.create');
     Route::get('admin/project/create', [CustomerManage::class, 'addProjectScreen'])->name('admin.project.create');
     Route::post('admin/project/store', [CustomerManage::class, 'addProject'])->name('admin.project.store');
     Route::get('logout', [LoginController::class, 'logout'])->name('admin.users.logout');
@@ -54,6 +54,7 @@ Route::group(['prefix' => '/'], function () {
     Route::get('/admin/creator', [AdminCreatorManage::class, 'index'])->name('admin.creator');
     Route::get('/admin/creator/projects/{id}', [AdminCreatorManage::class, 'showProject'])->name('admin.creator.project');
     Route::get('/admin/project/{id}/detail', [CustomerManage::class, 'showTotalCreator'])->name('admin.creator.project.detail');
+    Route::put('admin/customer/projects/{id}',[CustomerManage::class, 'expiredProject'])->name('admin.expiredProject');
 });
 
 Route::get('/getEventUser/{id}/creator/{creator_id}', [Customer::class, 'getEventCustomer'])->middleware('auth')->name('getEventCustomer');

@@ -140,4 +140,17 @@ class CustomerManage extends Controller
         // dd($creators_info);
         return view('auth.clientManage.projectDetail',['creators_info' => $creators_info, 'projectId'=>$project_id, 'projectName' => $project_name]);
     }
+
+    public function expiredProject($project_id) {
+        $project = Projects::where('id', $project_id)->first();
+        if ($project->expired == 1) {
+            $project->expired = 0;
+        }else {
+            $project->expired = 1;
+        }
+
+        $project->save();
+        
+        return redirect()->back();
+    }
 }
