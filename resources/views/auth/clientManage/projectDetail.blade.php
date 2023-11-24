@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     @include('library.sidebar')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <link rel="stylesheet" href="{{ asset('css/dashboardCreator.css') }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -22,13 +23,13 @@
         <div class="content-wrapper flex-grow-1" style="margin:0 !important;">
 
             <!-- Main content -->
-            <section class="content">
+            <section class="content container-fluid">
                 <div class="row">
                     <div class="col-lg-4 col-6 ml-4">
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h2><span>{{ $projectName }}</span></h2>
+                                <h2 class="text-center"><span>{{ $projectName }}</span></h2>
                             </div>
                         </div>
                     </div>
@@ -36,7 +37,7 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h2>{{ $creators_info[0]->total_hours }}H </h2>
+                                <h2 class="text-center"><i class="fa-solid fa-clock"></i>  {{ $creators_info[0]->total_hours }}H </h2>
                             </div>
                         </div>
                     </div>
@@ -62,7 +63,7 @@
                                     </div>
                                     <div class="media-body">
                                         <h6 class="media-title font-weight-semibold">
-                                            <p href="#" data-abc="true">{{ $item->name }}</p>
+                                            <p href="#" data-abc="true" >{{ $item->name }}</p>
                                         </h6>
                                         <div style="display:flex; flex-direction: row;">
                                             <label for="">電話番号: </label>
@@ -93,8 +94,16 @@
                                         <h3 class="mb-0 font-weight-semibold">{{ $item->total_hours_creator }}h</h3>
                                         <form
                                             action="{{ route('getEventCustomer', [$projectId, $item->main_id]) }}">
-                                            <button type="submit" class="btn btn-warning mt-4 text-white"><i
-                                                    class="icon-cart-add mr-2"></i> 詳細</button>
+                                            <button type="submit" class="btn btn-warning mt-2 text-white"><i class="fa-solid fa-calendar-days"></i>  詳細</button>
+                                        </form>
+
+                                        <form action="{{ route('admin.creator.deleteCreator', [$projectId, $item->main_id]) }}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                        
+                                            <button type="submit" class="btn btn-danger mt-2 text-white">
+                                                <i class="fa-solid fa-user-xmark"></i> 追放
+                                            </button>
                                         </form>
                                     </div>
                                 </div>
