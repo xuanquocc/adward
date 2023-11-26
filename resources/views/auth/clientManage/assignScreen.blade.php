@@ -96,7 +96,6 @@
                                                                         割当
                                                                     </button>
                                                                 </form>
-
                                                             </div>
                                                         </div>
                                                     </div>

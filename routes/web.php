@@ -55,6 +55,9 @@ Route::group(['prefix' => '/'], function () {
     Route::get('/admin/creator/projects/{id}', [AdminCreatorManage::class, 'showProject'])->name('admin.creator.project');
     Route::get('/admin/project/{id}/detail', [CustomerManage::class, 'showTotalCreator'])->name('admin.creator.project.detail');
     Route::put('admin/customer/projects/{id}',[CustomerManage::class, 'expiredProject'])->name('admin.expiredProject');
+
+    //New route
+    Route::delete('admin/customer/projects/{project_id}/{creator_id}', [CustomerManage::class, 'deleteCreator'])->name('admin.creator.deleteCreator');
 });
 
 Route::get('/getEventUser/{id}/creator/{creator_id}', [Customer::class, 'getEventCustomer'])->middleware('auth')->name('getEventCustomer');
