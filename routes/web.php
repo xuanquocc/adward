@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\Admin\RegisterCustumer;
 use App\Http\Controllers\Auth\Admin\regiterController;
 use App\Http\Controllers\Creator\CreatorManage;
 use App\Http\Controllers\Customer\Customer;
+use App\Http\Controllers\Forum\ManageBlogController;
 use App\Models\Creators;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FullCalenderController;
@@ -80,6 +81,11 @@ Route::group(['prefix' => '/creator'], function () {
     Route::patch('/calendar/update/{id}', [CreatorManage::class, 'update'])->name('calendar.update');
     Route::delete('/calendar/delete/{id}', [CreatorManage::class, 'destroy'])->name('calendar.destroy');
     Route::post('/search/{id}', [CreatorManage::class, 'search'])->name('search');
+});
+
+//forum
+Route::group(['prefix' => '/blog'], function () {
+    Route::get('/index', [ManageBlogController::class, 'index'])->name('blog');
 });
 
 
