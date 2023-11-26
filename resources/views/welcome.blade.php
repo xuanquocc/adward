@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
     <!-- fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Righteous&display=swap" rel="stylesheet">
+    
     <!-- owl stylesheets -->
     <link rel="stylesheet" href="{{ asset('css/landingpage/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/landingpage/owl.theme.default.min.css') }}">

@@ -82,7 +82,7 @@
                                                                 method="post" class="form-action">
                                                                 @method('PUT')
                                                                 @csrf
-                                                                @if ($project->expired == 1)
+                                                                @if ($project->expired == 0)
                                                                     <button type="submit"
                                                                         class="btn btn-success mr-3 text-white"><i
                                                                             class="icon-cart-add mr-2"></i>まだ有効</button>
@@ -92,7 +92,7 @@
                                                                             class="icon-cart-add mr-2"></i>期限切れ</button>
                                                                 @endif
                                                             </form>
-                                                            @if ($project->expired == 1)
+                                                            @if ($project->expired == 0)
                                                                 <form
                                                                     action="{{ route('admin.creator.project.detail', $project->id) }}"
                                                                     method="get" class="form-action">
