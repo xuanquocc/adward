@@ -89,6 +89,8 @@ Route::group(['prefix' => '/creator'], function () {
 //forum
 Route::group(['prefix' => '/blog'], function () {
     Route::get('/index', [ManageBlogController::class, 'index'])->name('blog');
+    Route::get('/createPost', [ManageBlogController::class, 'createPost'])->name('blog.createPost');
+    Route::post('/addPost', [ManageBlogController::class, 'addPost'])->name('blog.addPost');
 });
 
 
