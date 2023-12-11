@@ -98,6 +98,7 @@ img {
     width: 100%;
 }
 
+
 .overlap {
     position: relative;
     margin-top: -70px;
@@ -18522,3 +18523,56 @@ table.adition tbody tr td {
 	z-index: 999999 !important;
 }
 
+.tile-article{
+    width: 100%;
+    display: flex;
+    gap:10px
+}
+
+.dropdown{
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+}
+
+.menu-action{
+    position: relative;
+}
+
+.icons{
+    position: relative;
+}
+
+li {
+    padding: 5px 0 5px 0;
+}
+
+.menus {
+    border-radius: 10px;
+    display: none;
+    padding: 5px 20px 0 20px;
+    list-style: none;
+    position: absolute;
+    z-index: 10;
+    width: 20%;
+    transform: translate(790px, 24px);
+    height: 100px;
+    background-color: #fbf6f6;
+}
+
+.show{
+    display: block;
+}
+
+#myModal{
+    width: 100%;
+}
+
+.input{
+    background-color: #c3c3c3;
+}
+
+
+#edit-blog{
+    border-bottom: 1px solid #ccc;
+}
