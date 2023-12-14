@@ -2,3 +2,27 @@
     /* background-image: url("../images/background1.jpg"); */
     background-color: #4b5b63;
 }
+
+.blog-noti{
+    background-color: rgb(240 238 235);
+}
+
+.blog-content{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    justify-content: space-around;
+}
+
+.blog{
+    margin: 10px 0 10px 10px;
+    width: 80%;
+    display: flex;
+    background-color: aqua;
+}
+
+.ava{
+    width: 5%;
+    border-radius: 50%;
+    margin-right: 20px;
+}

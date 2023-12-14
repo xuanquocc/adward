@@ -17,6 +17,13 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
+    public function homeView(){
+        $data_blogs = DB::table('blogs')->get();
+        $data_creator = DB::table('users')->get();
+
+        return view('home',['data_blogs' => $data_blogs, 'data_creator' => $data_creator]);
+    }
+
     public function loginScreenCreator(){
         return view('creator.login');
     }
@@ -34,6 +41,9 @@ class LoginController extends Controller
 
         $type = DB::table('Users')->where('email', $request->email)->first();
         $creator = Creators::where('email',$request->email)->first();
+
+        
+
         if (Auth::attempt(
             [
                 'email' => $request->input('email'),
@@ -44,14 +54,15 @@ class LoginController extends Controller
 
             if ($type->type == "admin") {
                 return redirect()->route('admin.home');
+                // return view('home',['data_blogs' => $data_blogs, 'data_creator' => $data_creator]);
             } 
         }else {
             return redirect()->back()->with('error', 'メールアドレスまたはパスワードが正しくありませ');
         }
         
-    }
+    }      
 
-    public function checkLoginCreator (Request $request){
+     public function checkLoginCreator (Request $request){
         $this->validate($request, [
             'email' => 'required|Email:filter',
             'password' => 'required'

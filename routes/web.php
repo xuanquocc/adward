@@ -37,10 +37,8 @@ Route::post('/getPass/{user}/{token}',[LoginController::class,'postGetPass'])->n
 //Admin
 Route::group(['prefix' => '/'], function () {
     Route::get('admin/login', [LoginController::class, 'index'])->name('login.bol');
+    Route::get('admin/', [LoginController::class, 'homeView'])->name('admin.home');
     Route::post('admin/login/store', [LoginController::class, 'checkLogin'])->name('login.check');
-    Route::get('admin/', function () {
-        return view('/home');
-    })->name('admin.home');
     Route::get('search/customer',[CustomerManage::class,'searchTable'])->name('searchTable');
     Route::get('search/project',[CustomerManage::class,'searchProject'])->name('searchProject');
     Route::post('admin/customer/register', [RegisterCustumer::class, 'createClient'])->name('admin.customer.register');
@@ -56,6 +54,10 @@ Route::group(['prefix' => '/'], function () {
     Route::get('/admin/creator/projects/{id}', [AdminCreatorManage::class, 'showProject'])->name('admin.creator.project');
     Route::get('/admin/project/{id}/detail', [CustomerManage::class, 'showTotalCreator'])->name('admin.creator.project.detail');
     Route::put('admin/customer/projects/{id}',[CustomerManage::class, 'expiredProject'])->name('admin.expiredProject');
+
+    //blog accept && reject
+    Route::post('admin/blog/{blog_id}',[AdminCreatorManage::class, 'accecptBlog'])->name('admin.accept');
+    Route::delete('admin/delete/{blog_id}',[AdminCreatorManage::class, 'rejectBlog'])->name('admin.reject');
 
     //New route
     Route::delete('admin/customer/projects/{project_id}/{creator_id}', [CustomerManage::class, 'deleteCreator'])->name('admin.creator.deleteCreator');

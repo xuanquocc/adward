@@ -15,6 +15,7 @@ class Blogs extends Model
         'status',
         'image',
         'content',
+        'status',
     ];
 
    
