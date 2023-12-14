@@ -60,44 +60,45 @@
                                         </div>
                                         <div class="content-blogs">
                                             @foreach ($result as $post)
-                                                <div>
-                                                    <div>
+                                                @if ($post->status == 1)
+                                                <div class="blog" style="width: 90%; margin: 0 auto; ">
+                                                    <div class="container-blog" style="background-color: #edf2f6; padding: 40px;border-radius: 20px;  margin-bottom: 30px;">
                                                         <div class="tile-article">
                                                             <i class="fas fa fa-comments"></i>
                                                             <div class="dropdown">
                                                                 <a href="forums-category.html"
                                                                     title="">{{ $post->title }}</a>
-                                                                <div class="menu-action" id="action"
+                                                                <div class="menu-action action" id=""
                                                                     style="cursor: pointer;">
                                                                     <i class="icons fas fa-light fa-ellipsis-vertical"
                                                                         style="padding: 10px;"></i>
+                                                                        <ul class="menus" >
+                                                                            <form action="" method="post"
+                                                                                enctype="multipart/form-data">
+                                                                                @csrf  
+                                                                                <li class="edit-blog" data-toggle="modal"
+                                                                                data-target="#myModal" style="cursor: pointer; border-bottom:1px solid #ccc;">
+                                                                                    <i style="margin-right: 5px;" class="fas fa-thin fa-pen-to-square"></i>edit
+                                                                                </li>
+                                                                                <li id="delete-blog"><i style="margin-right: 5px;" class="fas fa-thin fa-trash"></i>delete
+                                                                                </li>
+                                                                        </ul>
                                                                 </div>
                                                             </div>
-                                                            <ul class="menus" id="menus">
-                                                                <form action="" method="post"
-                                                                    enctype="multipart/form-data">
-                                                                    @csrf
-
-
-                                                                    <li id="edit-blog" data-toggle="modal"
-																	data-target="#myModal" style="cursor: pointer; border-bottom:1px solid #ccc;">
-                                                                        <i style="margin-right: 5px;" class="fas fa-thin fa-pen-to-square"></i>edit
-                                                                    </li>
-                                                                    <li id="delete-blog"><i style="margin-right: 5px;" class="fas fa-thin fa-trash"></i>delete
-                                                                    </li>
-                                                            </ul>
+                                                            
 
                                                         </div>
                                                         <p>{{ $post->content }}</p>
                                                         @if (!empty($post->image))
-                                                            <div class="thumbnail" style="width: 90%; margin: 0 auto;">
+                                                            <div class="thumbnail" style="width: 90%; height:500px; margin: 0 auto;">
                                                                 <img src="{{ url('/public/uploads/' . $post->image) }}"
-                                                                    class="img" alt="" style="height:200px;">
+                                                                    class="img" alt="" style="height:100%;">
                                                             </div>
                                                         @endif
                                                     </div>
 
                                                 </div>
+                                                @endif
                                             @endforeach
 
 											
@@ -192,43 +193,45 @@
                             </div>
 
                             <!-- Body của Modal dialog -->
-                            <div class="modal-body">
-                                <div class=""
-                                    style="width: 200px; margin: 0 auto; border-radius: 50%; ">
-                                    <img src="" alt="" id="image"
-                                        style="width:200px !important; border-radius:50%; max-height: 200px">
-                                    <input type="hidden" name="imgFile" value="">
+                            <form action="">
+                                <div class="modal-body">
+                                    <div class=""
+                                        style="width: 200px; margin: 0 auto; border-radius: 50%; ">
+                                        <img src="" alt="" id="image"
+                                            style="width:200px !important; border-radius:50%; max-height: 200px">
+                                        <input type="hidden" name="imgFile" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name"><b>タイトル</b></label>
+                                        <input type="text" name="name"
+                                            class="form-control input" id="name"
+                                            autocomplete="off"　 placeholder="Name"
+                                            value="" style="
+                                            background-color: #ccc; padding: 5px 10px;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone"><b>内容</b></label>
+                                        <input type="text" name="phone"
+                                            class="form-control input" id="name"
+                                            autocomplete="off" placeholder="Phone"
+                                            value="" style="
+                                            background-color: #ccc; padding: 5px;">
+                                    </div>
+                                    <div class="form-group" id="uploadfile">
+                                        <label for="fileinput"><b>画像</b></label>
+                                        <input style="display: none" type="file"
+                                            name="file" id="fileinput"
+                                            onchange="chooseFile(this)">
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="name"><b>タイトル</b></label>
-                                    <input type="text" name="name"
-                                        class="form-control input" id="name"
-                                        autocomplete="off"　 placeholder="Name"
-                                        value="" style="
-                                        background-color: #ccc; padding: 5px 10px;">
+    
+                                <!-- Footer của Modal dialog -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">近い</button>
+                                    <button type="submit" class="btn btn-primary">保存</button>
                                 </div>
-                                <div class="form-group">
-                                    <label for="phone"><b>内容</b></label>
-                                    <input type="text" name="phone"
-                                        class="form-control input" id="name"
-                                        autocomplete="off" placeholder="Phone"
-                                        value="" style="
-                                        background-color: #ccc; padding: 5px;">
-                                </div>
-                                <div class="form-group" id="uploadfile">
-                                    <label for="fileinput"><b>画像</b></label>
-                                    <input style="display: none" type="file"
-                                        name="file" id="fileinput"
-                                        onchange="chooseFile(this)">
-                                </div>
-                            </div>
-
-                            <!-- Footer của Modal dialog -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-dismiss="modal">近い</button>
-                                <button type="submit" class="btn btn-primary">保存</button>
-                            </div>
+                            </form>
 
                         </div>
                     </div>

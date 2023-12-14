@@ -18554,8 +18554,8 @@ li {
     list-style: none;
     position: absolute;
     z-index: 10;
-    width: 20%;
-    transform: translate(790px, 24px);
+    width: 140px;
+    transform: translate(50%, 24px);
     height: 100px;
     background-color: #fbf6f6;
 }
@@ -18575,4 +18575,12 @@ li {
 
 #edit-blog{
     border-bottom: 1px solid #ccc;
+}
+
+.blog{
+    background-color: #edf2f6;
+}
+
+.container-blog{
+    padding: 15px;
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Forum;
 
+use App\Models\Blogs;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class ManageBlogController extends Controller
 {
@@ -21,7 +23,6 @@ class ManageBlogController extends Controller
     }
 
     public function addPost(Request $request){
-
         // dd($request->all());
         if ($request->hasFile('file')) {
             $file = $request->file;
@@ -39,7 +40,6 @@ class ManageBlogController extends Controller
                 'title' => $request->title,
                 'image' => $thumbnail
             ]);
-
             
         }else{
             DB::table('blogs')->insert([
@@ -51,5 +51,32 @@ class ManageBlogController extends Controller
         session()->flash('success', 'Thêm thành công!');
         return redirect()->route('blog');
     }
+
+
+//     public function editBlog(Request $request)
+// {
+//     $blog_creator_id = DB::table('blogs')->pluck('creator_id');
+//     $blog = Blogs::where('creator_id', Auth::user()->id)->get();
+//     // $current_Creator = Creators::where('email', Auth::user()->email)->first();
+
+//     if($blog_creator_id == Auth::user()->id ){
+//         if ($request->hasFile('file')) {
+//             // Nếu có file ảnh được tải lên, thực hiện cập nhật ảnh
+//             $file = $request->file;
+//             $fileName = $file->getClientOriginalName();
+//             $file->move('public/uploads', $file->getClientOriginalName());
+//             $thumbnail = $fileName;
+    
+//             $blog->image = $thumbnail;
+//         }
+    
+//         // Cập nhật các trường thông tin khác không liên quan đến ảnh
+//         $blog->title = $request->tile;
+//         $blog->save();
+//     }
+
+//     session()->flash('Success', 'Cập nhật thành công');
+//     return redirect()->back();
+// }
 
 }
