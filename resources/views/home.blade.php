@@ -37,8 +37,41 @@
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
+                </div>
 
-
+                <div class="row blog-noti">
+                    @include('auth.alert')
+                    <div class="col-12">
+                        @foreach ($data_blogs as $blog)
+                            @if ($blog->status == 0)
+                            <div class=" blog">
+                                <div class="col-12 blog-content">
+                                   <div class="content">
+                                        @foreach ($data_creator as $creator)
+                                            @if ($creator->id == $blog->creator_id)
+                                                <div class="ava">
+                                                    <img src="{{ url('/public/uploads/' . $creator->thumbnail) }}"  style="width:100%; border-radius: 50%; " {{$creator->thumbnail}}">
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                        <div class="title-blogs"><b>{{$blog->title}}</b></div>
+                                   </div>
+                                    <div class="blog-action">
+                                        <form action="{{ route('admin.accept',$blog->id)}}" method="POST">
+                                            @csrf
+                                            <button type="submit">Accept</button>
+                                        </form>
+                                        <form action="{{ route('admin.reject',$blog->id)}}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit">Reject</button>
+                                        </form>
+                                    </div>
+                                </div>  
+                            </div>
+                            @endif
+                        @endforeach
+                    </div>
                 </div>
 
         </section>

@@ -1,12 +1,21 @@
-var actionElm = document.getElementById('action');
-var menusElm = document.getElementById('menus');
-var editBtn = document.getElementById('edit-blog');
+var actionElms = document.querySelectorAll('.action');
+var menusElms = document.querySelectorAll('.menus');
+var editBtns = document.querySelectorAll('.edit-blog');
 
-actionElm.addEventListener('click',function () {
-    menusElm.classList.toggle('show');
-})
+actionElms.forEach(function (actionElm, index) {
+    actionElm.addEventListener('click', function () {
+        menusElms[index].classList.toggle('show');
+    });
+});
 
-editBtn.addEventListener('click', function() {
-    menusElm.classList.toggle('show')
-})
-
+editBtns.forEach(function (editBtn) {
+    editBtn.addEventListener('click', function () {
+        // Assuming the corresponding menu is next to the edit button
+        var menusElm = editBtn.parentElement.nextElementSibling;
+        
+        if (menusElm) {
+            menusElm.classList.toggle('show');
+        }
+    });
+});
+    

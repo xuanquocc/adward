@@ -17,6 +17,7 @@ class Blogs extends Model
         'status',
         'image',
         'content',
+        'status',
     ];
 
     public function user(){

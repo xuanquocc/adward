@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Auth\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blogs;
 use App\Models\Creators;
 use App\Models\Events;
 use App\Models\Projects;
 use App\Models\Tasks;
-
+use Illuminate\Support\Facades\DB;
 class AdminCreatorManage extends Controller
 {
     public function index()
@@ -34,9 +35,17 @@ class AdminCreatorManage extends Controller
         return $project_info;
     }
 
-    // public function statistical(){
+    public function accecptBlog($blog_id){
+        $blog = Blogs::where('id',$blog_id)->first();
+        $blog->status = 1;
 
-    // }
+        $blog->save();
+        return redirect()->back()->with('success','Update status successfully');
+    }
+    public function rejectBlog($blog_id){
+        DB::table('blogs')->where('id',$blog_id)->delete();
+        return redirect()->back()->with('success','Delete Blog successfully');
+    }
 
    
 }
