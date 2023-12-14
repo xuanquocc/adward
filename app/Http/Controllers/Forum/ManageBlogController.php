@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Forum;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\Blogs;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ManageBlogController extends Controller
 {
     public function index(){
-        $result = DB::table('blogs')->paginate(10);
+        $result = Blogs::paginate(10);
         return view('forum.index', [
             'result' => $result
         ]);
@@ -44,8 +45,8 @@ class ManageBlogController extends Controller
         }else{
             DB::table('blogs')->insert([
                 'creator_id' => Auth::user()->id,
-                'content' => $request->content,
                 'title' => $request->title,
+                'content' => $request->content,
             ]);
         }
         session()->flash('success', 'Thêm thành công!');

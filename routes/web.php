@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\Admin\RegisterCustumer;
 use App\Http\Controllers\Auth\Admin\regiterController;
 use App\Http\Controllers\Creator\CreatorManage;
 use App\Http\Controllers\Customer\Customer;
+use App\Http\Controllers\Forum\CommentController;
 use App\Http\Controllers\Forum\ManageBlogController;
 use App\Models\Creators;
 use Illuminate\Support\Facades\Route;
@@ -91,6 +92,7 @@ Route::group(['prefix' => '/blog'], function () {
     Route::get('/index', [ManageBlogController::class, 'index'])->name('blog');
     Route::get('/createPost', [ManageBlogController::class, 'createPost'])->name('blog.createPost');
     Route::post('/addPost', [ManageBlogController::class, 'addPost'])->name('blog.addPost');
+    Route::post('/addComment', [CommentController::class, 'addComment'])->name('blog.comment');
 });
 
 

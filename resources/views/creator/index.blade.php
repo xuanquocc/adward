@@ -7,19 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     @include('library.sidebarUser')
     <link rel="stylesheet" href="{{ asset('css/dashboardCreator.css') }}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <style>
-        #content{
+        #content {
             display: flex;
             flex-direction: column;
             height: auto;
         }
 
-        .wrap{
+        .wrap {
             flex-direction: row;
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-
 </head>
 
 <body>
@@ -33,7 +37,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 mb-4 mb-sm-5">
-                            <div class="card card-style1 border-0">
+                            <div class="card mt-3 card-style1 border-0">
                                 <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
                                     <div class="row align-items-center">
                                         <div class="col-lg-6 mb-4 mb-lg-0">
@@ -159,53 +163,51 @@
                     </div>
                 </div>
                 <h3 style="font-weight: 700;">プロジェクト</h3>
-            <div class="     d-flex flex-wrap" style="d-flex flex-wrap">
-                @foreach ($projectName as $item)
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="ag-format-container" style="width: 351px">
-                                <div class="ag-courses_box">
-                                    <div class="ag-courses_item">
-                                        <a href="{{ route('getevent', [$item->id, Auth::user()->id]) }}"
-                                            class="ag-courses-item_link">
-                                            <div class="ag-courses-item_bg"></div>
-                                            <div class="ag-courses-item_title">
-                                                {{ $item->name }}
-                                            </div>
-                                            <div class="ag-courses-item_date-box">
-                                                始める:
-                                                <span class="ag-courses-item_date">
-                                                    {{ \Carbon\Carbon::parse($item->start)->format('d/m/Y') }}
-                                                </span>
-                                            </div>
-                                            <div class="ag-courses-item_date-box">
-                                                締め切り:
-                                                <span class="ag-courses-item_date">
-                                                    {{ \Carbon\Carbon::parse($item->deadline)->format('d/m/Y') }}
-                                                </span>
-                                            </div>
-                                            <div class="ag-courses-item_date-box">
-                                                合計時間:
-                                                <span class="ag-courses-item_date">
-                                                    {{$item->total_hours_creator }}
-                                                </span>
-                                            </div>
-                                        </a>
+                <div class="d-flex flex-wrap" style="d-flex flex-wrap">
+                    @foreach ($projectName as $item)
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="ag-format-container" style="width: 351px">
+                                    <div class="ag-courses_box">
+                                        <div class="ag-courses_item">
+                                            <a href="{{ route('getevent', [$item->id, Auth::user()->id]) }}"
+                                                class="ag-courses-item_link">
+                                                <div class="ag-courses-item_bg"></div>
+                                                <div class="ag-courses-item_title">
+                                                    {{ $item->name }}
+                                                </div>
+                                                <div class="ag-courses-item_date-box">
+                                                    始める:
+                                                    <span class="ag-courses-item_date">
+                                                        {{ \Carbon\Carbon::parse($item->start)->format('d/m/Y') }}
+                                                    </span>
+                                                </div>
+                                                <div class="ag-courses-item_date-box">
+                                                    締め切り:
+                                                    <span class="ag-courses-item_date">
+                                                        {{ \Carbon\Carbon::parse($item->deadline)->format('d/m/Y') }}
+                                                    </span>
+                                                </div>
+                                                <div class="ag-courses-item_date-box">
+                                                    合計時間:
+                                                    <span class="ag-courses-item_date">
+                                                        {{ $item->total_hours_creator }}
+                                                    </span>
+                                                </div>
+                                            </a>
 
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
+                    @endforeach
+                </div>
             </section>
-            
-
-
         </div>
-    </div>
+
+
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script>
@@ -223,6 +225,7 @@
             }
         }
     </script>
+
 </body>
 
 </html>
