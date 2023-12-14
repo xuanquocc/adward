@@ -19,7 +19,6 @@ return new class extends Migration
             $table->dateTime('deadline');
             $table->dateTime('start');
             $table->foreign('customers_id')->references('id')->on('customers');
-            $table->tinyInteger('expired')->default(0);
             $table->timestamps();
         });
     }
