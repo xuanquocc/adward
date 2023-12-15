@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +10,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/main.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styleBlog.css') }}">
     <link rel="stylesheet" href="{{ asset('css/color.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsive.css"') }}">
     <link rel="stylesheet" href="{{ asset('css/createPost.css"') }}">
 </head>
+
 <body>
     <div class="theme-layout">
 
@@ -32,11 +35,12 @@
 
                                     <h4>助けを見つける新しい方法</h4>
                                 </div><!-- title block -->
-                                
+
                                 <a class="addnewforum" href="{{ route('blog.createPost') }}" title=""><i
                                         class="fa fa-plus"></i> 新しく追加する</a>
-                                <a class=" float-left btn btn-dark" href="{{ route('creator.home') }}" title=""> 戻る
-                                        </a>
+                                <a class=" float-left btn btn-dark" href="{{ route('creator.home') }}" title="">
+                                    戻る
+                                </a>
                             </div>
                             <div class="central-meta">
                                 <div class="forum-list">
@@ -48,72 +52,88 @@
                                         <div class="content-blogs mt-5">
                                             @foreach ($result as $post)
                                                 @if ($post->status == 1)
-                                                <div class="blog" style="width: 90%; margin: 0 auto; ">
-                                                    <div class="container-blog" style="background-color: #edf2f6; padding: 40px;border-radius: 20px;  margin-bottom: 30px;">
-                                                        <div class="tile-article">
-                                                            <i class="fas fa fa-comments"></i>
-                                                            <div class="dropdown">
-                                                                <a href="forums-category.html"
-                                                                    title="">{{ $post->title }}</a>
-                                                                <div class="menu-action action" id=""
-
-                                                                    style="cursor: pointer;">
-                                                                    <i class="icons fas fa-light fa-ellipsis-vertical"
-                                                                        style="padding: 10px;"></i>
-                                                                        <ul class="menus" >
+                                                    <div class="blog"
+                                                        style="width: 100%; margin: 0 auto; padding: 10px">
+                                                        <div class="container-blog"
+                                                            style="background-color: #edf2f6; padding: 40px;border-radius: 20px;  margin-bottom: 30px;">
+                                                            <div class="tile-article">
+                                                                <i class="fas fa fa-comments"></i>
+                                                                <div class="dropdown">
+                                                                    <a href="forums-category.html"
+                                                                        title="">{{ $post->title }}</a>
+                                                                    <div class="menu-action action" id=""
+                                                                        style="cursor: pointer;">
+                                                                        <i class="icons fas fa-light fa-ellipsis-vertical"
+                                                                            style="padding: 10px;"></i>
+                                                                        <ul class="menus">
                                                                             <form action="" method="post"
                                                                                 enctype="multipart/form-data">
-                                                                                @csrf  
-                                                                                <li class="edit-blog" data-toggle="modal"
-                                                                                data-target="#myModal" style="cursor: pointer; border-bottom:1px solid #ccc;">
-                                                                                    <i style="margin-right: 5px;" class="fas fa-thin fa-pen-to-square"></i>edit
+                                                                                @csrf
+                                                                                <li class="edit-blog"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#myModal"
+                                                                                    style="cursor: pointer; border-bottom:1px solid #ccc;">
+                                                                                    <i style="margin-right: 5px;"
+                                                                                        class="fas fa-thin fa-pen-to-square"></i>edit
                                                                                 </li>
-                                                                                <li id="delete-blog"><i style="margin-right: 5px;" class="fas fa-thin fa-trash"></i>delete
+                                                                                <li id="delete-blog"><i
+                                                                                        style="margin-right: 5px;"
+                                                                                        class="fas fa-thin fa-trash"></i>delete
                                                                                 </li>
                                                                         </ul>
-                                                                </div>
-                                                            </div>
-                                                            
-                                                        </div>
-                                                        <p>{{ $post->content }}</p>
-                                                        @if (!empty($post->image))
-                                                            <div class="thumbnail" style="width: 90%; height:500px; margin: 0 auto;">
-                                                                <img src="{{ url('/public/uploads/' . $post->image) }}"
-                                                                    class="img" alt="" style="height:100%;">
-
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                    <div class="mt-4">
-                                                        <h6>コメント ()</h6>
-                                                        <div class="p-3" id="comment">
-                                                            @foreach ($post->comments as $comment)
-                                                                <div class="media">
-                                                                    <img class="mr-3" src=""
-                                                                        alt="Generic placeholder image">
-                                                                    <div class="media-body">
-                                                                        <h5 class="mt-0">{{ $comment->user->name }}</h5>
-                                                                        <p>{{ $comment->content }}</p>
                                                                     </div>
-                                                                    <button type="submit"
-                                                                        class="btn btn-warning mt-2 text-white mb-2">Reply</button>
-                                                                    
                                                                 </div>
-                                                            @endforeach
-                                                        </div>
-                                                        <form action="" id="form_comment" method="POST"
-                                                            role="form">
-                                                            @csrf
-                                                            <input class="d-none" type="number" value="{{ $post->id }}" name="" id="blog_id">
-                                                            <textarea name="comment_content" id="comment_content" style="height: 50px;" cols="30" rows="10"
-                                                                required="Empty" placeholder="Your comment"></textarea>
-                                                            <small id="error_block"></small>
-                                                            <button type="submit" id="comment_btn"
-                                                                class="btn btn-dark mt-2 float-right">提出する</button>
-                                                        </form>
-                                                    </div>
 
-                                                </div>
+                                                            </div>
+                                                            <p>{{ $post->content }}</p>
+                                                            @if (!empty($post->image))
+                                                                <div class="thumbnail"
+                                                                    style="width: 90%; height:500px; margin: 0 auto;">
+                                                                    <img src="{{ url('/public/uploads/' . $post->image) }}"
+                                                                        class="img" alt=""
+                                                                        style="height:100%;">
+
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="mt-4">
+                                                            <h6>コメント ()</h6>
+                                                            <div class="p-3" id="comment">
+                                                                @foreach ($post->comments as $comment)
+                                                                    <div class="media border-bottom mb-3">
+                                                                        <div style="display: flex; align-items: center">
+                                                                            <img class="mr-3"
+                                                                                style="width: 10%; height: 10%; border-radius: 50%"
+                                                                                src="{{ url('/public/uploads/' . $comment->user->thumbnail) }}"
+                                                                                alt="コメント者の名前">
+                                                                            <h5 class="mt-0">
+                                                                                {{ $comment->user->name }}</h5>
+                                                                        </div>
+                                                                        <div class="media-body mt-3">
+
+                                                                            <p>{{ $comment->content }}</p>
+                                                                        </div>
+                                                                        <button type="submit"
+                                                                            class="btn btn-warning mt-2 text-white mb-2">返事</button>
+
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                            <form action="" id="form_comment" method="POST"
+                                                                role="form">
+                                                                @csrf
+                                                                <input class="d-none" type="number"
+                                                                    value="{{ $post->id }}" name=""
+                                                                    id="blog_id">
+                                                                <textarea name="comment_content" id="comment_content" style="height: 50px;" cols="30" rows="10"
+                                                                    required="Empty" placeholder="Your comment"></textarea>
+                                                                <small id="error_block"></small>
+                                                                <button type="submit" id="comment_btn"
+                                                                    class="btn btn-dark mt-2 float-right">提出する</button>
+                                                            </form>
+                                                        </div>
+
+                                                    </div>
                                                 @endif
                                             @endforeach
                                         </div>
@@ -213,40 +233,35 @@
                             <!-- Body của Modal dialog -->
                             <form action="">
                                 <div class="modal-body">
-                                    <div class=""
-                                        style="width: 200px; margin: 0 auto; border-radius: 50%; ">
+                                    <div class="" style="width: 200px; margin: 0 auto; border-radius: 50%; ">
                                         <img src="" alt="" id="image"
                                             style="width:200px !important; border-radius:50%; max-height: 200px">
                                         <input type="hidden" name="imgFile" value="">
                                     </div>
                                     <div class="form-group">
                                         <label for="name"><b>タイトル</b></label>
-                                        <input type="text" name="name"
-                                            class="form-control input" id="name"
-                                            autocomplete="off"　 placeholder="Name"
-                                            value="" style="
+                                        <input type="text" name="name" class="form-control input"
+                                            id="name" autocomplete="off"　 placeholder="Name" value=""
+                                            style="
                                             background-color: #ccc; padding: 5px 10px;">
                                     </div>
                                     <div class="form-group">
                                         <label for="phone"><b>内容</b></label>
-                                        <input type="text" name="phone"
-                                            class="form-control input" id="name"
-                                            autocomplete="off" placeholder="Phone"
-                                            value="" style="
+                                        <input type="text" name="phone" class="form-control input"
+                                            id="name" autocomplete="off" placeholder="Phone" value=""
+                                            style="
                                             background-color: #ccc; padding: 5px;">
                                     </div>
                                     <div class="form-group" id="uploadfile">
                                         <label for="fileinput"><b>画像</b></label>
-                                        <input style="display: none" type="file"
-                                            name="file" id="fileinput"
+                                        <input style="display: none" type="file" name="file" id="fileinput"
                                             onchange="chooseFile(this)">
                                     </div>
                                 </div>
-    
+
                                 <!-- Footer của Modal dialog -->
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-dismiss="modal">近い</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">近い</button>
                                     <button type="submit" class="btn btn-primary">保存</button>
                                 </div>
                             </form>
@@ -258,17 +273,19 @@
         </section>
 
     </div>
-    <script src="js/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="{{ URL::asset('/js/main.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
     <script src="{{ URL::asset('/js/blog.js') }}"></script>
+    
     <script>
         var _csrf = '{{ csrf_token() }}';
         $('#comment_btn').click(function(event) {
             event.preventDefault();
             let content = $('#comment_content').val();
             let blog_id = $('#blog_id').val()
-            let comment_url = '{{ route("blog.comment") }}';
+            let comment_url = '{{ route('blog.comment') }}';
             console.log(content, comment_url);
 
             $.ajax({
@@ -280,7 +297,7 @@
                     _token: _csrf
                 },
                 success: function(res) {
-                    if (res.error) {    
+                    if (res.error) {
                         $('#error_block').html(res.error);
                     } else {
                         $('#error_block').html('');
@@ -291,11 +308,11 @@
                 }
             });
         });
-
     </script>
 </body>
+
 </html>
-    
+
 
 {{-- <div class="d-none float-end" style="max-width: 90%">
     <form action="" method="POST" role="form">

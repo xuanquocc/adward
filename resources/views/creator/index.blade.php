@@ -11,7 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <style>
         #content {
@@ -156,10 +156,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
                     </div>
                 </div>
                 <h3 style="font-weight: 700;">プロジェクト</h3>
