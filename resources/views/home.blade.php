@@ -1,4 +1,9 @@
-<link rel="stylesheet" href="{{ asset('css/homeAdmin.css') }}">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="{{ asset('css/homeAdmin.css') }}">
 <div style="display: flex; flex-direction:row">
 
     @include('publicView.sidebar')
@@ -39,33 +44,37 @@
                     </div>
                 </div>
 
-                <div class="row blog-noti p-2">
-                    @include('auth.alert')
+                <div class="row blog-noti p-3">
+                    <h4>ブログ通知</h4>
+                    <div class="w-full">
+                        @include('auth.alert')
+                    </div>
                     <div class="col-12">
                         @foreach ($data_blogs as $blog)
                             @if ($blog->status == 0)
-                            <div class=" blog">
+                            <div class=" bg-gray p-2">
                                 <div class="col-12 blog-content">
                                    <div class="content">
                                         @foreach ($data_creator as $creator)
                                             @if ($creator->id == $blog->creator_id)
-                                                <div class="ava">
-                                                    <img src="{{ url('/public/uploads/' . $creator->thumbnail) }}"  style="width:100%; border-radius: 50%; " {{$creator->thumbnail}}">
+                                                <div class="ava flex gap-2 justify-between">
+                                                    <img src="{{ url('/public/uploads/' . $creator->thumbnail) }}"  style="width: 10%; border-radius: 50%; " {{$creator->thumbnail}}">
                                                     <b>{{ $creator->name }}</b>
                                                 </div>
                                             @endif
                                         @endforeach
-                                        <div class="title-blogs mt-2"><b>{{$blog->title}}</b></div>
+                                        <div class="title-blogs mt-3">コンテンツ: 
+                                            <b>{{$blog->title}}</b></div>
                                    </div>
                                     <div class="blog-action">
                                         <form action="{{ route('admin.accept',$blog->id)}}" method="POST">
                                             @csrf
-                                            <button type="submit">Accept</button>
+                                            <button class="btn btn-success px-3" type="submit">受け入れる</button>
                                         </form>
                                         <form action="{{ route('admin.reject',$blog->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit">Reject</button>
+                                            <button class="btn btn-dark px-3" type="submit">拒否する</button>
                                         </form>
                                     </div>
                                 </div>  

@@ -48,7 +48,7 @@ class ManageBlogController extends Controller
                 'content' => $request->content,
             ]);
         }
-        session()->flash('success', 'Thêm thành công!');
+        session()->flash('success', 'さらなる成功を！');
         return redirect()->route('blog');
     }
 

@@ -40,11 +40,11 @@ class AdminCreatorManage extends Controller
         $blog->status = 1;
 
         $blog->save();
-        return redirect()->back()->with('success','Update status successfully');
+        return redirect()->back()->with('success','ステータスが正常に更新されました');
     }
     public function rejectBlog($blog_id){
         DB::table('blogs')->where('id',$blog_id)->delete();
-        return redirect()->back()->with('success','Delete Blog successfully');
+        return redirect()->back()->with('success','ブログが正常に削除されました');
     }
 
    

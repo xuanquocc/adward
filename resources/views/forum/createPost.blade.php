@@ -62,9 +62,10 @@
                                         </div>
                                         <div>
                                             <button class="main-btn" type="submit" data-ripple="">投稿トピック</button>
-                                            <a class="main-btn3 float-right" href="{{ route('blog') }}" data-ripple="">キャンセル
+                                            <a class="main-btn3 float-right" href="{{ route('blog') }}"
+                                                data-ripple="">キャンセル
                                             </a>
-                                            
+
                                         </div>
                                     </form>
                                 </div>
