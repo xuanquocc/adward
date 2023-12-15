@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Forum;
 use App\Models\Blogs;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Models\Blogs;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -49,7 +48,7 @@ class ManageBlogController extends Controller
                 'content' => $request->content,
             ]);
         }
-        session()->flash('success', 'Thêm thành công!');
+        session()->flash('success', 'さらなる成功を！');
         return redirect()->route('blog');
     }
 
