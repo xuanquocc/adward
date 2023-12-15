@@ -56,7 +56,7 @@
                                         <div>
                                             <div class="form-group" id="uploadfile">
                                                 <label for="fileinput">画像</label>
-                                                <input required="Empty" style="display: none" type="file"
+                                                <input style="display: none" type="file"
                                                     name="file" id="fileinput" onchange="chooseFile(this)">
                                             </div>
                                         </div>

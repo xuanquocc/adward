@@ -39,7 +39,7 @@
                     </div>
                 </div>
 
-                <div class="row blog-noti">
+                <div class="row blog-noti p-2">
                     @include('auth.alert')
                     <div class="col-12">
                         @foreach ($data_blogs as $blog)
@@ -51,10 +51,11 @@
                                             @if ($creator->id == $blog->creator_id)
                                                 <div class="ava">
                                                     <img src="{{ url('/public/uploads/' . $creator->thumbnail) }}"  style="width:100%; border-radius: 50%; " {{$creator->thumbnail}}">
+                                                    <b>{{ $creator->name }}</b>
                                                 </div>
                                             @endif
                                         @endforeach
-                                        <div class="title-blogs"><b>{{$blog->title}}</b></div>
+                                        <div class="title-blogs mt-2"><b>{{$blog->title}}</b></div>
                                    </div>
                                     <div class="blog-action">
                                         <form action="{{ route('admin.accept',$blog->id)}}" method="POST">
