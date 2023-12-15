@@ -52,10 +52,11 @@
                                         <div class="content-blogs mt-5">
                                             @foreach ($result as $post)
                                                 @if ($post->status == 1)
-                                                    <div class="blog"
+                                                
+                                                    <div class="blog border-bottom"
                                                         style="width: 100%; margin: 0 auto; padding: 10px">
                                                         <div class="container-blog"
-                                                            style="background-color: #edf2f6; padding: 40px;border-radius: 20px;  margin-bottom: 30px;">
+                                                            style="background-color: #edf2f6; padding: 10px;border-radius: 20px;  margin-bottom: 30px;">
                                                             <div class="tile-article">
                                                                 <i class="fas fa fa-comments"></i>
                                                                 <div class="dropdown">
@@ -97,7 +98,21 @@
                                                             @endif
                                                         </div>
                                                         <div class="mt-4">
-                                                            <h6>コメント ()</h6>
+                                                            <h6><b>コメント ()</b></h6>
+                                                            <form action="" id="form_comment" method="POST"
+                                                                role="form">
+                                                                @csrf
+                                                                <div class="mb-9">
+                                                                    <input class="d-none" type="number"
+                                                                    value="{{ $post->id }}" name=""
+                                                                    id="blog_id">
+                                                                <textarea name="comment_content" id="comment_content" style="height: 50px;" cols="30" rows="10"
+                                                                    required="Empty" placeholder="Your comment"></textarea>
+                                                                
+                                                                <button type="submit" id="comment_btn"
+                                                                    class="btn btn-dark mt-2 float-right">提出する</button>
+                                                                </div>
+                                                            </form>
                                                             <div class="p-3" id="comment">
                                                                 @foreach ($post->comments as $comment)
                                                                     <div class="media border-bottom mb-3">
@@ -119,18 +134,7 @@
                                                                     </div>
                                                                 @endforeach
                                                             </div>
-                                                            <form action="" id="form_comment" method="POST"
-                                                                role="form">
-                                                                @csrf
-                                                                <input class="d-none" type="number"
-                                                                    value="{{ $post->id }}" name=""
-                                                                    id="blog_id">
-                                                                <textarea name="comment_content" id="comment_content" style="height: 50px;" cols="30" rows="10"
-                                                                    required="Empty" placeholder="Your comment"></textarea>
-                                                                <small id="error_block"></small>
-                                                                <button type="submit" id="comment_btn"
-                                                                    class="btn btn-dark mt-2 float-right">提出する</button>
-                                                            </form>
+                                                            
                                                         </div>
 
                                                     </div>
@@ -142,13 +146,13 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="col-lg-3">
+                        <div class="col-lg-3">
                             <aside class="sidebar static">
                                 <div class="widget">
-                                    <h4 class="widget-title">Forum Statistics</h4>
+                                    <h4 class="widget-title">フォーラムの統計</h4>
                                     <ul class="forum-static">
                                         <li>
-                                            <a href="#" title="">Forums</a>
+                                            <a href="#" title="">フォーラム</a>
                                             <span>13</span>
                                         </li>
                                         <li>
@@ -159,63 +163,11 @@
                                             <a href="#" title="">Topics</a>
                                             <span>14</span>
                                         </li>
-                                        <li>
-                                            <a href="#" title="">Replies</a>
-                                            <span>32</span>
-                                        </li>
-                                        <li>
-                                            <a href="#" title="">Topic Tags</a>
-                                            <span>50</span>
-                                        </li>
                                     </ul>
                                 </div>
-                                <div class="widget">
-                                    <h4 class="widget-title">Recent Topics</h4>
-                                    <ul class="recent-topics">
-                                        <li>
-                                            <a href="#" title="">The new Goddess of War trailer was launched
-                                                at E3!</a>
-                                            <span>2 hours, 16 minutes ago</span>
-                                            <i>The Community</i>
-                                        </li>
-                                        <li>
-                                            <a href="#" title="">The new Goddess of War trailer was launched
-                                                at E3!</a>
-                                            <span>2 hours, 16 minutes ago</span>
-                                            <i>The Community</i>
-                                        </li>
-                                        <li>
-                                            <a href="#" title="">The new Goddess of War trailer was launched
-                                                at E3!</a>
-                                            <span>2 hours, 16 minutes ago</span>
-                                            <i>The Community</i>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="widget">
-                                    <h4 class="widget-title">Featured Topics</h4>
-                                    <ul class="feature-topics">
-                                        <li>
-                                            <i class="fa fa-star"></i>
-                                            <a href="#" title="">What is your favourit season in summer?</a>
-                                            <span>2 hours, 16 minutes ago</span>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-star"></i>
-                                            <a href="#" title="">The new Goddess of War trailer was launched
-                                                at E3!</a>
-                                            <span>2 hours, 16 minutes ago</span>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-star"></i>
-                                            <a href="#" title="">Summer is Coming! Picnic in the east
-                                                boulevard park</a>
-                                            <span>2 hours, 16 minutes ago</span>
-                                        </li>
-                                    </ul>
-                                </div>
+                                
                             </aside>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
                 {{-- modal --}}
@@ -285,7 +237,7 @@
             event.preventDefault();
             let content = $('#comment_content').val();
             let blog_id = $('#blog_id').val()
-            let comment_url = '{{ route('blog.comment') }}';
+            let comment_url = '{{ route("blog.comment") }}';
             console.log(content, comment_url);
 
             $.ajax({

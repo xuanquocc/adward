@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Forum;
 use App\Models\Blogs;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\Comments;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -13,8 +14,15 @@ class ManageBlogController extends Controller
 {
     public function index(){
         $result = Blogs::paginate(10);
+        // dd($result);
+        // $comments = Comments::where('blog_id', $result->id)->get();
+        // $number_comment = 0;
+        // foreach ($comments as $comment) {
+        //     $number_comment += 1;
+        // }
         return view('forum.index', [
-            'result' => $result
+            'result' => $result,
+            // 'number_comment' => $number_comment
         ]);
     }
 
