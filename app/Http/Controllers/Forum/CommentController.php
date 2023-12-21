@@ -11,6 +11,12 @@ use App\Models\Blogs;
 
 class CommentController extends Controller
 {
+
+    public function postDetail($id){
+        $post = Blogs::where('id',$id)->first();
+        return view('forum.postDetail',['post' => $post]);
+    }
+
     public function addComment(Request $request) {
 
         $user_id = Auth::user()->id;
@@ -19,7 +25,8 @@ class CommentController extends Controller
         $data = [
             'user_id' => $user_id,
             'blog_id' => $request->blog_id,
-            'content' => $request->content
+            'content' => $request->content,
+            'reply_id' => $request->reply_id ? $request->reply_id : 0
         ];
 
         if ($comment = Comments::create($data)) {
@@ -28,6 +35,8 @@ class CommentController extends Controller
         } 
 
         return response()->json(['error' => 'Comment has not been posted']);
+
+        // dd($request->blog_id);
 
     }
 }

@@ -53,91 +53,52 @@
                                             @foreach ($result as $post)
                                                 @if ($post->status == 1)
                                                 
+                                                    
                                                     <div class="blog border-bottom"
-                                                        style="width: 100%; margin: 0 auto; padding: 10px">
-                                                        <div class="container-blog"
-                                                            style="background-color: #edf2f6; padding: 10px;border-radius: 20px;  margin-bottom: 30px;">
-                                                            <div class="tile-article">
-                                                                <i class="fas fa fa-comments"></i>
-                                                                <div class="dropdown">
-                                                                    <a href="forums-category.html"
-                                                                        title="">{{ $post->title }}</a>
-                                                                    <div class="menu-action action" id=""
-                                                                        style="cursor: pointer;">
-                                                                        <i class="icons fas fa-light fa-ellipsis-vertical"
-                                                                            style="padding: 10px;"></i>
-                                                                        <ul class="menus">
-                                                                            <form action="" method="post"
-                                                                                enctype="multipart/form-data">
-                                                                                @csrf
-                                                                                <li class="edit-blog"
-                                                                                    data-toggle="modal"
-                                                                                    data-target="#myModal"
-                                                                                    style="cursor: pointer; border-bottom:1px solid #ccc;">
-                                                                                    <i style="margin-right: 5px;"
-                                                                                        class="fas fa-thin fa-pen-to-square"></i>edit
-                                                                                </li>
-                                                                                <li id="delete-blog"><i
-                                                                                        style="margin-right: 5px;"
-                                                                                        class="fas fa-thin fa-trash"></i>delete
-                                                                                </li>
-                                                                        </ul>
+                                                        style="width: 100%; margin: 20px auto; padding: 10px">
+                                                            <div class="container-blog"
+                                                                style="background-color: #edf2f6; padding: 10px;border-radius: 20px;  margin-bottom: 30px;">
+                                                                <div class="tile-article">
+                                                                    <i class="fas fa fa-comments"></i>
+                                                                    <div class="dropdown">
+                                                                        <a href="{{route('blog.detail',$post->id)}}"
+                                                                            title="">{{ $post->title }}</a>
+                                                                        <div class="menu-action action" id=""
+                                                                            style="cursor: pointer;">
+                                                                            <i class="icons fas fa-light fa-ellipsis-vertical"
+                                                                                style="padding: 10px;"></i>
+                                                                            <ul class="menus">
+                                                                                <form action="" method="post"
+                                                                                    enctype="multipart/form-data">
+                                                                                    @csrf
+                                                                                    <li class="edit-blog"
+                                                                                        data-toggle="modal"
+                                                                                        data-target="#myModal"
+                                                                                        style="cursor: pointer; border-bottom:1px solid #ccc;">
+                                                                                        <i style="margin-right: 5px;"
+                                                                                            class="fas fa-thin fa-pen-to-square"></i>edit
+                                                                                    </li>
+                                                                                    <li id="delete-blog"><i
+                                                                                            style="margin-right: 5px;"
+                                                                                            class="fas fa-thin fa-trash"></i>delete
+                                                                                    </li>
+                                                                            </ul>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-
-                                                            </div>
-                                                            <p>{{ $post->content }}</p>
-                                                            @if (!empty($post->image))
-                                                                <div class="thumbnail"
-                                                                    style="width: 90%; height:500px; margin: 0 auto;">
-                                                                    <img src="{{ url('/public/uploads/' . $post->image) }}"
-                                                                        class="img" alt=""
-                                                                        style="height:100%;">
 
                                                                 </div>
-                                                            @endif
-                                                        </div>
-                                                        <div class="mt-4">
-                                                            <h6><b>コメント ()</b></h6>
-                                                            <form action="" id="form_comment" method="POST"
-                                                                role="form">
-                                                                @csrf
-                                                                <div class="mb-9">
-                                                                    <input class="d-none" type="number"
-                                                                    value="{{ $post->id }}" name=""
-                                                                    id="blog_id">
-                                                                <textarea name="comment_content" id="comment_content" style="height: 50px;" cols="30" rows="10"
-                                                                    required="Empty" placeholder="Your comment"></textarea>
-                                                                
-                                                                <button type="submit" id="comment_btn"
-                                                                    class="btn btn-dark mt-2 float-right">提出する</button>
-                                                                </div>
-                                                            </form>
-                                                            <div class="p-3" id="comment">
-                                                                @foreach ($post->comments as $comment)
-                                                                    <div class="media border-bottom mb-3">
-                                                                        <div style="display: flex; align-items: center">
-                                                                            <img class="mr-3"
-                                                                                style="width: 10%; height: 10%; border-radius: 50%"
-                                                                                src="{{ url('/public/uploads/' . $comment->user->thumbnail) }}"
-                                                                                alt="コメント者の名前">
-                                                                            <h5 class="mt-0">
-                                                                                {{ $comment->user->name }}</h5>
-                                                                        </div>
-                                                                        <div class="media-body mt-3">
-
-                                                                            <p>{{ $comment->content }}</p>
-                                                                        </div>
-                                                                        <button type="submit"
-                                                                            class="btn btn-warning mt-2 text-white mb-2">返事</button>
+                                                                <p>{{ $post->content }}</p>
+                                                                @if (!empty($post->image))
+                                                                    <div class="thumbnail"
+                                                                        style="width: 90%; height:500px; margin: 0 auto;">
+                                                                        <img src="{{ url('/public/uploads/' . $post->image) }}"
+                                                                            class="img" alt=""
+                                                                            style="height:100%;">
 
                                                                     </div>
-                                                                @endforeach
+                                                                @endif
                                                             </div>
-                                                            
                                                         </div>
-
-                                                    </div>
                                                 @endif
                                             @endforeach
                                         </div>
