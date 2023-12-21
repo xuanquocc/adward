@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\Admin\CustomerManage;
 use App\Http\Controllers\Auth\Admin\LoginController;
 use App\Http\Controllers\Auth\Admin\RegisterCustumer;
 use App\Http\Controllers\Auth\Admin\regiterController;
+use App\Http\Controllers\Creator\ChatController;
 use App\Http\Controllers\Creator\CreatorManage;
 use App\Http\Controllers\Customer\Customer;
 use App\Http\Controllers\Forum\CommentController;
@@ -96,6 +97,5 @@ Route::group(['prefix' => '/blog'], function () {
     Route::post('/addPost', [ManageBlogController::class, 'addPost'])->name('blog.addPost');
     Route::post('/addComment', [CommentController::class, 'addComment'])->name('blog.comment');
 });
-
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
