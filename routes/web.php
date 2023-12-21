@@ -95,6 +95,7 @@ Route::group(['prefix' => '/blog'], function () {
     Route::get('/createPost', [ManageBlogController::class, 'createPost'])->name('blog.createPost');
     Route::post('/addPost', [ManageBlogController::class, 'addPost'])->name('blog.addPost');
     Route::post('/addComment', [CommentController::class, 'addComment'])->name('blog.comment');
+    Route::get('/detail/{id}', [CommentController::class, 'postDetail'])->name('blog.detail');
 });
 
 
